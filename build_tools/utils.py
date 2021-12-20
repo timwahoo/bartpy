@@ -263,7 +263,7 @@ def format_docstring(usage: str, arg_list, kwarg_dict):
     for kwarg in kwarg_dict:
         if 'help' not in kwarg:
             desc = None if 'desc' not in kwarg.keys() else kwarg['desc']
-            docstring += f"\t:param {kwarg['name']} {kwarg['type']}: {desc} \n"
+            docstring += f"\t:param {kwarg['name']} {kwarg['type']}: {desc}\n"
     return docstring
 
 def format_string(s):
@@ -274,8 +274,8 @@ def format_string(s):
     formatted = "_".join(re.split(r'[^_A-Za-z0-9\d]', s))
     if re.match(r'\b[0-9]\b', formatted):
         formatted = f'_{formatted}'
-    if 'lambda' in formatted: # edge case because Python reserves the token `lambda`
-        formatted = 'llambda'
+    if 'lambda' == formatted: # edge case because Python reserves the token `lambda`
+        formatted = formatted.replace('lambda', 'llambda')
     return formatted
 
 
@@ -476,4 +476,4 @@ def write_tool_methods():
 if __name__ == '__main__':
     write_tool_methods()
 
-    
+

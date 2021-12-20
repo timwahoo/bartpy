@@ -18,7 +18,7 @@ def avg(input, bitmask, w=None):
 
     :param bitmask int:
     :param input array:
-    :param w bool: weighted average 
+    :param w bool: weighted average
 
     """
     usage_string = "vg [-w] bitmask input output"
@@ -51,9 +51,9 @@ def bench(T=None, S=None, s=None):
     """
     Performs a series of micro-benchmarks.
 
-    :param T bool: varying number of threads 
-    :param S bool: varying problem size 
-    :param s long: select benchmarks 
+    :param T bool: varying number of threads
+    :param S bool: varying problem size
+    :param s long: select benchmarks
 
     """
     usage_string = "bench [-T] [-S] [-s d] [output]"
@@ -94,14 +94,14 @@ def bin(label, src, l=None, o=None, R=None, C=None, r=None, c=None, a=None, A=No
     :param label array:
     :param src array:
     :param x OUTFILE:
-    :param l int: Bin according to labels: Specify cluster dimension 
-    :param o bool: Reorder according to labels 
-    :param R int: Quadrature Binning: Number of respiratory labels 
-    :param C int: Quadrature Binning: Number of cardiac labels 
-    :param r VEC2: (Respiration: Eigenvector index) 
-    :param c VEC2: (Cardiac motion: Eigenvector index) 
-    :param a int: Quadrature Binning: Moving average 
-    :param A int: (Quadrature Binning: Cardiac moving average window) 
+    :param l int: Bin according to labels: Specify cluster dimension
+    :param o bool: Reorder according to labels
+    :param R int: Quadrature Binning: Number of respiratory labels
+    :param C int: Quadrature Binning: Number of cardiac labels
+    :param r VEC2: (Respiration: Eigenvector index)
+    :param c VEC2: (Cardiac motion: Eigenvector index)
+    :param a int: Quadrature Binning: Moving average
+    :param A int: (Quadrature Binning: Cardiac moving average window)
 
     """
     usage_string = "bin [-l d] [-o] [-R d] [-C d] [-a d] label src dst"
@@ -156,8 +156,8 @@ def bitmask(dim=None, b=None):
     """
     Convert between a bitmask and set of dimensions.
 
-    :param dim tuple: None 
-    :param b bool: dimensions from bitmask use with exaclty one argument 
+    :param dim tuple: None
+    :param b bool: dimensions from bitmask use with exaclty one argument
 
     """
     usage_string = "bitmask [-b] [dim1 ... dimN ]"
@@ -252,11 +252,11 @@ def calmat(kspace, k=None, K=None, r=None, R=None, C=None):
     Compute calibration matrix.
 
     :param kspace array:
-    :param k list: kernel size 
-    :param K list: () 
-    :param r list: Limits the size of the calibration region. 
-    :param R list: () 
-    :param C bool: () 
+    :param k list: kernel size
+    :param K list: ()
+    :param r list: Limits the size of the calibration region.
+    :param R list: ()
+    :param C bool: ()
 
     """
     usage_string = "calmat [-k d:d:d] [-r d:d:d] kspace calibration_matrix"
@@ -368,14 +368,14 @@ def cc(kspace, p=None, M=None, r=None, R=None, A=None, S=None, G=None, E=None):
     Performs coil compression.
 
     :param kspace array:
-    :param p long: perform compression to N virtual channels 
-    :param M bool: output compression matrix 
-    :param r list: size of calibration region 
-    :param R list: (size of calibration region) 
-    :param A bool: use all data to compute coefficients 
-    :param S bool: type: SVD 
-    :param G bool: type: Geometric 
-    :param E bool: type: ESPIRiT 
+    :param p long: perform compression to N virtual channels
+    :param M bool: output compression matrix
+    :param r list: size of calibration region
+    :param R list: (size of calibration region)
+    :param A bool: use all data to compute coefficients
+    :param S bool: type: SVD
+    :param G bool: type: Geometric
+    :param E bool: type: ESPIRiT
 
     """
     usage_string = "cc [-p d] [-M] [-r d:d:d] [-A] [-S] [-G] [-E] kspace coeff|proj_kspace"
@@ -431,12 +431,12 @@ def ccapply(kspace, cc_matrix, p=None, u=None, t=None, S=None, G=None, E=None):
 
     :param kspace array:
     :param cc_matrix array:
-    :param p long: perform compression to N virtual channels 
-    :param u bool: apply inverse operation 
-    :param t bool: don't apply FFT in readout 
-    :param S bool: type: SVD 
-    :param G bool: type: Geometric 
-    :param E bool: type: ESPIRiT 
+    :param p long: perform compression to N virtual channels
+    :param u bool: apply inverse operation
+    :param t bool: don't apply FFT in readout
+    :param S bool: type: SVD
+    :param G bool: type: Geometric
+    :param E bool: type: ESPIRiT
 
     """
     usage_string = "ccapply [-p d] [-u] [-t] [-S] [-G] [-E] kspace cc_matrix proj_kspace"
@@ -487,7 +487,7 @@ def cdf97(input, bitmask, i=None):
 
     :param bitmask int:
     :param input array:
-    :param i bool: inverse 
+    :param i bool: inverse
 
     """
     usage_string = "cdf97 [-i] bitmask input output"
@@ -616,8 +616,8 @@ def conway(input, P=None, n=None):
     Conway's game of life.
 
     :param input array:
-    :param P bool: periodic boundary conditions 
-    :param n int: nr. of iterations 
+    :param P bool: periodic boundary conditions
+    :param n int: nr. of iterations
 
     """
     usage_string = "conway [-P] [-n d] input output"
@@ -655,8 +655,8 @@ def copy(input, output, dim=None, pos=None):
 
     :param input array:
     :param output INOUTFILE:
-    :param dim multituple: None 
-    :param pos multituple: None 
+    :param dim multituple: None
+    :param pos multituple: None
 
     """
     usage_string = "copy [dim1 pos1 ... dimN posN ] input output"
@@ -814,28 +814,28 @@ def ecalib(kspace, t=None, c=None, k=None, K=None, r=None, R=None, m=None, S=Non
 Optionally outputs the eigenvalue maps.
 
     :param kspace array:
-    :param t float: This determined the size of the null-space. 
-    :param c float: Crop the sensitivities if the eigenvalue is smaller than crop_value. 
-    :param k list: kernel size 
-    :param K list: () 
-    :param r list: Limits the size of the calibration region. 
-    :param R list: () 
-    :param m int: Number of maps to compute. 
-    :param S bool: create maps with smooth transitions (Soft-SENSE). 
-    :param W bool: soft-weighting of the singular vectors. 
-    :param I bool: intensity correction 
-    :param _1 bool: perform only first part of the calibration 
-    :param P bool: Do not rotate the phase with respect to the first principal component 
-    :param O bool: () 
-    :param b float: () 
-    :param V bool: () 
-    :param C bool: () 
-    :param g bool: () 
-    :param p float: () 
-    :param n int: () 
-    :param v float: Variance of noise in data. 
-    :param a bool: Automatically pick thresholds. 
-    :param d int: Debug level 
+    :param t float: This determined the size of the null-space.
+    :param c float: Crop the sensitivities if the eigenvalue is smaller than crop_value.
+    :param k list: kernel size
+    :param K list: ()
+    :param r list: Limits the size of the calibration region.
+    :param R list: ()
+    :param m int: Number of maps to compute.
+    :param S bool: create maps with smooth transitions (Soft-SENSE).
+    :param W bool: soft-weighting of the singular vectors.
+    :param I bool: intensity correction
+    :param _1 bool: perform only first part of the calibration
+    :param P bool: Do not rotate the phase with respect to the first principal component
+    :param O bool: ()
+    :param b float: ()
+    :param V bool: ()
+    :param C bool: ()
+    :param g bool: ()
+    :param p float: ()
+    :param n int: ()
+    :param v float: Variance of noise in data.
+    :param a bool: Automatically pick thresholds.
+    :param d int: Debug level
 
     """
     usage_string = "calib [-t f] [-c f] [-k d:d:d] [-r d:d:d] [-m d] [-S] [-W] [-I] [-1] [-P] [-v f] [-a] [-d d] kspace sensitivities [ev-maps]"
@@ -936,11 +936,11 @@ Optionally outputs the eigenvalue maps.
     :param y long:
     :param z long:
     :param input array:
-    :param c float: Crop the sensitivities if the eigenvalue is smaller than crop_value. 
-    :param m long: Number of maps to compute. 
-    :param S bool: Create maps with smooth transitions (Soft-SENSE). 
-    :param O bool: () 
-    :param g bool: () 
+    :param c float: Crop the sensitivities if the eigenvalue is smaller than crop_value.
+    :param m long: Number of maps to compute.
+    :param S bool: Create maps with smooth transitions (Soft-SENSE).
+    :param O bool: ()
+    :param g bool: ()
 
     """
     usage_string = "caltwo [-c f] [-m d] [-S] x y z input sensitivities [ev-maps]"
@@ -985,23 +985,23 @@ def epg(C=None, M=None, H=None, F=None, S=None, B=None, _1=None, _2=None, b=None
     """
     Simulate MR pulse sequence based on Extended Phase Graphs (EPG)
 
-    :param C bool: CPMG 
-    :param M bool: fmSSFP 
-    :param H bool: Hyperecho 
-    :param F bool: FLASH 
-    :param S bool: Spinecho 
-    :param B bool: bSSFP 
-    :param _1 float: T1 [units of time] 
-    :param _2 float: T2 [units of time] 
-    :param b float: relative B1 [unitless] 
-    :param o float: off-resonance [units of inverse time] 
-    :param r float: repetition time [units of time] 
-    :param e float: echo time [units of time] 
-    :param f float: flip angle [degrees] 
-    :param s long: spoiling (0: ideal 1: conventional RF 2: random RF) 
-    :param n long: number of pulses 
-    :param u long: unknowns as bitmask (0: T1 1: T2 2: B1 3: off-res) 
-    :param v long: verbosity level 
+    :param C bool: CPMG
+    :param M bool: fmSSFP
+    :param H bool: Hyperecho
+    :param F bool: FLASH
+    :param S bool: Spinecho
+    :param B bool: bSSFP
+    :param _1 float: T1 [units of time]
+    :param _2 float: T2 [units of time]
+    :param b float: relative B1 [unitless]
+    :param o float: off-resonance [units of inverse time]
+    :param r float: repetition time [units of time]
+    :param e float: echo time [units of time]
+    :param f float: flip angle [degrees]
+    :param s long: spoiling (0: ideal 1: conventional RF 2: random RF)
+    :param n long: number of pulses
+    :param u long: unknowns as bitmask (0: T1 1: T2 2: B1 3: off-res)
+    :param v long: verbosity level
 
     """
     usage_string = "pg [-C] [-M] [-H] [-F] [-S] [-B] [-1 f] [-2 f] [-b f] [-o f] [-r f] [-e f] [-f f] [-s d] [-n d] [-u d] [-v d] signal intensity [configuration states] [(rel.) signal derivatives] [configuration derivatives]"
@@ -1083,10 +1083,10 @@ def estdelay(trajectory, data, R=None, p=None, n=None, r=None):
 
     :param trajectory array:
     :param data array:
-    :param R bool: RING method 
-    :param p int: [RING] Padding 
-    :param n int: [RING] Number of intersecting spokes 
-    :param r float: [RING] Central region size 
+    :param R bool: RING method
+    :param p int: [RING] Padding
+    :param n int: [RING] Number of intersecting spokes
+    :param r float: [RING] Central region size
 
     """
     usage_string = "tdelay [-R] [-p d] [-n d] [-r f] trajectory data [qf]"
@@ -1188,10 +1188,10 @@ def estvar(kspace, k=None, K=None, r=None, R=None):
     Estimate the noise variance assuming white Gaussian noise.
 
     :param kspace array:
-    :param k list: kernel size 
-    :param K list: () 
-    :param r list: Limits the size of the calibration region. 
-    :param R list: () 
+    :param k list: kernel size
+    :param K list: ()
+    :param r list: Limits the size of the calibration region.
+    :param R list: ()
 
     """
     usage_string = "tvar [-k d:d:d] [-r d:d:d] kspace"
@@ -1273,7 +1273,7 @@ def fakeksp(image, kspace, sens, output, r=None):
     :param kspace array:
     :param sens array:
     :param output array:
-    :param r bool: replace measured samples with original values 
+    :param r bool: replace measured samples with original values
 
     """
     usage_string = "fakeksp [-r] image kspace sens output"
@@ -1308,9 +1308,9 @@ def fft(input, bitmask, u=None, i=None, n=None):
 
     :param bitmask long:
     :param input array:
-    :param u bool: unitary 
-    :param i bool: inverse 
-    :param n bool: un-centered 
+    :param u bool: unitary
+    :param i bool: inverse
+    :param n bool: un-centered
 
     """
     usage_string = "fft [-u] [-i] [-n] bitmask input output"
@@ -1351,8 +1351,8 @@ def fftmod(input, bitmask, b=None, i=None):
 
     :param bitmask long:
     :param input array:
-    :param b bool: (deprecated) 
-    :param i bool: inverse 
+    :param b bool: (deprecated)
+    :param i bool: inverse
 
     """
     usage_string = "fftmod [-i] bitmask input output"
@@ -1423,7 +1423,7 @@ def fftshift(input, bitmask, b=None):
 
     :param bitmask long:
     :param input array:
-    :param b bool: apply ifftshift 
+    :param b bool: apply ifftshift
 
     """
     usage_string = "fftshift [-b] bitmask input output"
@@ -1457,8 +1457,8 @@ def filter(input, m=None, l=None):
     Apply filter.
 
     :param input array:
-    :param m int: median filter along dimension dim 
-    :param l int: length of filter 
+    :param m int: median filter along dimension dim
+    :param l int: length of filter
 
     """
     usage_string = "filter [-m d] [-l d] input output"
@@ -1557,10 +1557,10 @@ def fmac(input1, input2=None, A=None, C=None, s=None):
 If <input2> is not specified, assume all-ones.
 
     :param input1 array:
-    :param input2 array: None 
-    :param A bool: add to existing output (instead of overwriting) 
-    :param C bool: conjugate input2 
-    :param s long: squash dimensions selected by bitmask b 
+    :param input2 array: None
+    :param A bool: add to existing output (instead of overwriting)
+    :param C bool: conjugate input2
+    :param s long: squash dimensions selected by bitmask b
 
     """
     usage_string = "fmac [-A] [-C] [-s d] input1 [input2] output"
@@ -1605,11 +1605,11 @@ def homodyne(input, dim, fraction, r=None, I=None, C=None, P=None, n=None):
     :param dim int:
     :param fraction float:
     :param input array:
-    :param r float: Offset of ramp filter between 0 and 1. alpha=0 is a full ramp alpha=1 is a horizontal line 
-    :param I bool: Input is in image domain 
-    :param C bool: Clear unacquired portion of kspace 
-    :param P array: Use <phase_ref> as phase reference 
-    :param n bool: use uncentered ffts 
+    :param r float: Offset of ramp filter between 0 and 1. alpha=0 is a full ramp alpha=1 is a horizontal line
+    :param I bool: Input is in image domain
+    :param C bool: Clear unacquired portion of kspace
+    :param P array: Use <phase_ref> as phase reference
+    :param n bool: use uncentered ffts
 
     """
     usage_string = "homodyne [-r f] [-I] [-C] [-P file] [-n] dim fraction input output"
@@ -1756,7 +1756,7 @@ def join(dimension, input, output, a=None):
     :param dimension int:
     :param input tuple:
     :param output INOUTFILE:
-    :param a bool: append - only works for cfl files! 
+    :param a bool: append - only works for cfl files!
 
     """
     usage_string = "join [-a] dimension input1 ... inputN output"
@@ -1786,8 +1786,8 @@ def looklocker(input, t=None, D=None):
     Compute T1 map from M_0, M_ss, and R_1*.
 
     :param input array:
-    :param t float: Pixels with M0 values smaller than threshold are set to zero. 
-    :param D float: Time between the middle of inversion pulse and the first excitation. 
+    :param t float: Pixels with M0 values smaller than threshold are set to zero.
+    :param D float: Time between the middle of inversion pulse and the first excitation.
 
     """
     usage_string = "looklocker [-t f] [-D f] input output"
@@ -1825,21 +1825,21 @@ def lrmatrix(input, d=None, i=None, m=None, f=None, j=None, k=None, N=None, s=No
 
     :param input array:
     :param o OUTFILE:
-    :param d bool: perform decomposition instead ie fully sampled 
-    :param i int: maximum iterations. 
-    :param m long: which dimensions are reshaped to matrix columns. 
-    :param f long: which dimensions to perform multi-scale partition. 
-    :param j int: block size scaling from one scale to the next one. 
-    :param k long: smallest block size 
-    :param N bool: add noise scale to account for Gaussian noise. 
-    :param s bool: perform low rank + sparse matrix completion. 
-    :param l long: perform locally low rank soft thresholding with specified block size. 
-    :param u bool: () 
-    :param v bool: () 
-    :param H bool: (hogwild) 
-    :param p float: (rho) 
-    :param n bool: (no randshift) 
-    :param g bool: (use GPU) 
+    :param d bool: perform decomposition instead ie fully sampled
+    :param i int: maximum iterations.
+    :param m long: which dimensions are reshaped to matrix columns.
+    :param f long: which dimensions to perform multi-scale partition.
+    :param j int: block size scaling from one scale to the next one.
+    :param k long: smallest block size
+    :param N bool: add noise scale to account for Gaussian noise.
+    :param s bool: perform low rank + sparse matrix completion.
+    :param l long: perform locally low rank soft thresholding with specified block size.
+    :param u bool: ()
+    :param v bool: ()
+    :param H bool: (hogwild)
+    :param p float: (rho)
+    :param n bool: (no randshift)
+    :param g bool: (use GPU)
 
     """
     usage_string = "lrmatrix [-d] [-i d] [-m d] [-f d] [-j d] [-k d] [-N] [-s] [-l d] [-o file] input output"
@@ -1914,12 +1914,12 @@ def mandelbrot(s=None, n=None, t=None, z=None, r=None, i=None):
     """
     Compute mandelbrot set.
 
-    :param s int: image size 
-    :param n int: nr. of iterations 
-    :param t float: threshold for divergence 
-    :param z float: zoom 
-    :param r float: offset real 
-    :param i float: offset imag 
+    :param s int: image size
+    :param n int: nr. of iterations
+    :param t float: threshold for divergence
+    :param z float: zoom
+    :param r float: offset real
+    :param i float: offset imag
 
     """
     usage_string = "mandelbrot [-s d] [-n d] [-t f] [-z f] [-r f] [-i f] output"
@@ -1968,8 +1968,8 @@ def mip(input, bitmask, m=None, a=None):
 
     :param bitmask int:
     :param input array:
-    :param m bool: minimum 
-    :param a bool: do absolute value first 
+    :param m bool: minimum
+    :param a bool: do absolute value first
 
     """
     usage_string = "mip [-m] [-a] bitmask input output"
@@ -2007,40 +2007,40 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
 
     :param kspace array:
     :param TI_TE array:
-    :param r SPECIAL: generalized regularization options (-rh for help) 
-    :param L bool: T1 mapping using model-based look-locker 
-    :param F bool: T2 mapping using model-based Fast Spin Echo 
-    :param G bool: T2* mapping using model-based multiple gradient echo 
-    :param m int: Select the MGRE model from enum  WF = 0 WFR2S WF2R2S R2S PHASEDIFF  [default: WFR2S] 
-    :param l int: toggle l1-wavelet or l2 regularization. 
-    :param i int: Number of Newton steps 
-    :param R float: reduction factor 
-    :param T float: damping on temporal frames 
-    :param j float: Minimum regu. parameter 
-    :param u float: ADMM rho [default: 0.01] 
-    :param C int: inner iterations 
-    :param s float: step size 
-    :param B float: lower bound for relaxivity 
-    :param b FLOAT_VEC2: B0 field: spatial smooth level; scaling [default: 222.; 1.] 
-    :param d int: Debug level 
-    :param N bool: (normalize) 
-    :param f float:  
-    :param p array:  
-    :param J bool: Stack frames for joint recon 
-    :param M bool: Simultaneous Multi-Slice reconstruction 
-    :param O bool: (Output original maps from reconstruction without post processing) 
-    :param g bool: use gpu 
-    :param I array: File for initialization 
-    :param t array:  
-    :param o float: Oversampling factor for gridding [default: 1.25] 
-    :param k bool: k-space edge filter for non-Cartesian trajectories 
-    :param kfilter_1 bool: k-space edge filter 1 
-    :param kfilter_2 bool: k-space edge filter 2 
-    :param n bool: disable normlization of parameter maps for thresholding 
-    :param no_alpha_min_exp_decay bool: (Use hard minimum instead of exponentional decay towards alpha_min) 
-    :param sobolev_a float: (a in 1 + a * \Laplace^-b/2) 
-    :param sobolev_b float: (b in 1 + a * \Laplace^-b/2) 
-    :param fat_spec_0 bool: select fat spectrum from ISMRM fat-water tool 
+    :param r SPECIAL: generalized regularization options (-rh for help)
+    :param L bool: T1 mapping using model-based look-locker
+    :param F bool: T2 mapping using model-based Fast Spin Echo
+    :param G bool: T2* mapping using model-based multiple gradient echo
+    :param m int: Select the MGRE model from enum  WF = 0 WFR2S WF2R2S R2S PHASEDIFF  [default: WFR2S]
+    :param l int: toggle l1-wavelet or l2 regularization.
+    :param i int: Number of Newton steps
+    :param R float: reduction factor
+    :param T float: damping on temporal frames
+    :param j float: Minimum regu. parameter
+    :param u float: ADMM rho [default: 0.01]
+    :param C int: inner iterations
+    :param s float: step size
+    :param B float: lower bound for relaxivity
+    :param b FLOAT_VEC2: B0 field: spatial smooth level; scaling [default: 222.; 1.]
+    :param d int: Debug level
+    :param N bool: (normalize)
+    :param f float: 
+    :param p array: 
+    :param J bool: Stack frames for joint recon
+    :param M bool: Simultaneous Multi-Slice reconstruction
+    :param O bool: (Output original maps from reconstruction without post processing)
+    :param g bool: use gpu
+    :param I array: File for initialization
+    :param t array: 
+    :param o float: Oversampling factor for gridding [default: 1.25]
+    :param k bool: k-space edge filter for non-Cartesian trajectories
+    :param kfilter_1 bool: k-space edge filter 1
+    :param kfilter_2 bool: k-space edge filter 2
+    :param n bool: disable normlization of parameter maps for thresholding
+    :param no_alpha_min_exp_decay bool: (Use hard minimum instead of exponentional decay towards alpha_min)
+    :param sobolev_a float: (a in 1 + a * \Laplace^-b/2)
+    :param sobolev_b float: (b in 1 + a * \Laplace^-b/2)
+    :param fat_spec_0 bool: select fat spectrum from ISMRM fat-water tool
 
     """
     usage_string = "moba [-r ...] [-L] [-F] [-G] [-m d] [-l d] [-i d] [-R f] [-T f] [-j f] [-u f] [-C d] [-s f] [-B f] [-b f:f] [-d d] [-f f] [-p file] [-J] [-M] [-g] [-I file] [-t file] [-o f] [-k] [--kfilter-1] [--kfilter-2] [-n] [--fat_spec_0] kspace TI/TE output [sensitivities]"
@@ -2178,11 +2178,11 @@ def mobafit(TE, echo_images, G=None, m=None, i=None, p=None, g=None):
 
     :param TE array:
     :param echo_images array:
-    :param G bool: MGRE 
-    :param m int: Select the MGRE model from enum  WF = 0 WFR2S WF2R2S R2S PHASEDIFF  [default: WFR2S] 
-    :param i int: Number of IRGNM steps 
-    :param p list: (patch size) 
-    :param g bool: use gpu 
+    :param G bool: MGRE
+    :param m int: Select the MGRE model from enum  WF = 0 WFR2S WF2R2S R2S PHASEDIFF  [default: WFR2S]
+    :param i int: Number of IRGNM steps
+    :param p list: (patch size)
+    :param g bool: use gpu
 
     """
     usage_string = "mobafit [-G] [-m d] [-i d] [-g] TE echo images [paramters]"
@@ -2224,6 +2224,38 @@ def mobafit(TE, echo_images, G=None, m=None, i=None, p=None, g=None):
     outputs = cfl.readcfl(NAME + 'paramters')
     return outputs
 
+def multicfl(cfl, s=None):
+    """
+    Combine/Split multiple cfl files to one multi-cfl file.
+In normal usage, the last argument is the combined multi-cfl,
+with '-s', the first argument is the multi-cfl that is split up
+
+    :param cfl tuple:
+    :param s bool: separate
+
+    """
+    usage_string = "multicfl [-s] cfl1 ... cflN"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'multicfl '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if s is not None:
+        flag_str += f'-s '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {' '.join([str(arg) for arg in cfl])}  "
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
 def nlinv(kspace, i=None, R=None, M=None, d=None, c=None, N=None, m=None, U=None, f=None, p=None, t=None, I=None, g=None, S=None, s=None, a=None, b=None, P=None, n=None, w=None, lowmem=None):
     """
     Jointly estimate image and sensitivities with nonlinear
@@ -2231,27 +2263,27 @@ inversion using {iter} iteration steps. Optionally outputs
 the sensitivities.
 
     :param kspace array:
-    :param i int: Number of Newton steps 
-    :param R float: (reduction factor) 
-    :param M float: (minimum for regularization) 
-    :param d int: Debug level 
-    :param c bool: Real-value constraint 
-    :param N bool: Do not normalize image with coil sensitivities 
-    :param m int: Number of ENLIVE maps to use in reconstruction 
-    :param U bool: Do not combine ENLIVE maps in output 
-    :param f float: restrict FOV 
-    :param p array: pattern / transfer function 
-    :param t array: kspace trajectory 
-    :param I array: File for initialization 
-    :param g bool: use gpu 
-    :param S bool: Re-scale image after reconstruction 
-    :param s int: (dimensions with constant sensitivities) 
-    :param a float: (a in 1 + a * \Laplace^-b/2) 
-    :param b float: (b in 1 + a * \Laplace^-b/2) 
-    :param P bool: (supplied psf is different for each coil) 
-    :param n bool: (non-Cartesian) 
-    :param w float: (inverse scaling of the data) 
-    :param lowmem bool: Use low-mem mode of the nuFFT 
+    :param i int: Number of Newton steps
+    :param R float: (reduction factor)
+    :param M float: (minimum for regularization)
+    :param d int: Debug level
+    :param c bool: Real-value constraint
+    :param N bool: Do not normalize image with coil sensitivities
+    :param m int: Number of ENLIVE maps to use in reconstruction
+    :param U bool: Do not combine ENLIVE maps in output
+    :param f float: restrict FOV
+    :param p array: pattern / transfer function
+    :param t array: kspace trajectory
+    :param I array: File for initialization
+    :param g bool: use gpu
+    :param S bool: Re-scale image after reconstruction
+    :param s int: (dimensions with constant sensitivities)
+    :param a float: (a in 1 + a * \Laplace^-b/2)
+    :param b float: (b in 1 + a * \Laplace^-b/2)
+    :param P bool: (supplied psf is different for each coil)
+    :param n bool: (non-Cartesian)
+    :param w float: (inverse scaling of the data)
+    :param lowmem bool: Use low-mem mode of the nuFFT
 
     """
     usage_string = "nlinv [-i d] [-d d] [-c] [-N] [-m d] [-U] [-f f] [-p file] [-t file] [-I file] [-g] [-S] [--lowmem] kspace output [sensitivities]"
@@ -2343,15 +2375,105 @@ the sensitivities.
     outputs = cfl.readcfl(NAME + 'output'), cfl.readcfl(NAME + 'sensitivities')
     return outputs
 
+def nnet(input, weights, ref_output, apply=None, eval=None, train=None, gpu=None, batch_size=None, load=None, network=None, unet_segm=None, train_loss=None, valid_loss=None, valid_data=None, train_algo=None, adam=None, load_memory=None, export_graph=None):
+    """
+    Trains or applies a neural network.
+
+    :param input array:
+    :param weights INOUTFILE:
+    :param ref_output INOUTFILE:
+    :param apply bool: apply nnet
+    :param eval bool: evaluate nnet
+    :param train bool: trains network
+    :param gpu bool: run on gpu
+    :param batch_size long: size of mini batches
+    :param load array: load weights for continuing training
+    :param network SUBOPT: select neural network
+    :param unet_segm SUBOPT: configure U-Net for segmentation
+    :param train_loss SUBOPT: configure the training loss
+    :param valid_loss SUBOPT: configure the validation loss
+    :param valid_data SUBOPT: provide validation data
+    :param train_algo SUBOPT: configure general training parmeters
+    :param adam SUBOPT: configure Adam
+    :param load_memory bool: load files int memory
+    :param export_graph STRING: export graph for visualization
+
+    """
+    usage_string = "nnet [-a,--apply] [-e,--eval] [-t,--train] [-g,--gpu] [-b,--batch-size d] [-l,--load file] [-N,--network ...] [-U,--unet-segm ...] [--train-loss ...] [--valid-loss ...] [--valid-data ...] [-T,--train-algo ...] [--adam ...] [--load-memory] [--export-graph string] input weights ref/output"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'nnet '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if apply is not None:
+        flag_str += f'--apply '
+
+    if eval is not None:
+        flag_str += f'--eval '
+
+    if train is not None:
+        flag_str += f'--train '
+
+    if gpu is not None:
+        flag_str += f'--gpu '
+
+    if batch_size is not None:
+        flag_str += f'--batch-size {batch_size} '
+
+    if not isinstance(load, type(None)):
+        cfl.writecfl(NAME + 'load', load)
+        flag_str += f'--load {NAME}load '
+
+    if network is not None:
+        flag_str += f'--network {network} '
+
+    if unet_segm is not None:
+        flag_str += f'--unet-segm {unet_segm} '
+
+    if train_loss is not None:
+        flag_str += f'--train-loss {train_loss} '
+
+    if valid_loss is not None:
+        flag_str += f'--valid-loss {valid_loss} '
+
+    if valid_data is not None:
+        flag_str += f'--valid-data {valid_data} '
+
+    if train_algo is not None:
+        flag_str += f'--train-algo {train_algo} '
+
+    if adam is not None:
+        flag_str += f'--adam {adam} '
+
+    if load_memory is not None:
+        flag_str += f'--load-memory '
+
+    if export_graph is not None:
+        flag_str += f'--export-graph {export_graph} '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}input {weights} {ref_output}  "
+    cfl.writecfl(NAME + 'input', input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
 def noise(input, s=None, S=None, r=None, n=None):
     """
     Add noise with selected variance to input.
 
     :param input array:
-    :param s int: random seed initialization 
-    :param S float: () 
-    :param r bool: real-valued input 
-    :param n float: DEFAULT: 1.0 
+    :param s int: random seed initialization
+    :param S float: ()
+    :param r bool: real-valued input
+    :param n float: DEFAULT: 1.0
 
     """
     usage_string = "noise [-s d] [-r] [-n f] input output"
@@ -2395,7 +2517,7 @@ def normalize(input, flags, b=None):
 
     :param flags int:
     :param input array:
-    :param b bool: l1 
+    :param b bool: l1
 
     """
     usage_string = "normalize [-b] flags input output"
@@ -2431,8 +2553,8 @@ i.e. norm(input - ref) / norm(ref)
 
     :param reference array:
     :param input array:
-    :param t float: compare to eps 
-    :param s bool: automatic (complex) scaling 
+    :param t float: compare to eps
+    :param s bool: automatic (complex) scaling
 
     """
     usage_string = "nrmse [-t f] [-s] reference input"
@@ -2468,20 +2590,20 @@ def nufft(traj, input, a=None, i=None, d=None, D=None, t=None, r=None, c=None, l
 
     :param traj array:
     :param input array:
-    :param a bool: adjoint 
-    :param i bool: inverse 
-    :param d list: dimensions 
-    :param D list: () 
-    :param t bool: Toeplitz embedding for inverse NUFFT 
-    :param r bool: turn-off Toeplitz embedding for inverse NUFFT 
-    :param c bool: Preconditioning for inverse NUFFT 
-    :param l float: l2 regularization 
-    :param m int: () 
-    :param P bool: periodic k-space 
-    :param s bool: DFT 
-    :param g bool: GPU (only inverse) 
-    :param _1 bool: use/return oversampled grid 
-    :param lowmem bool: Use low-mem mode of the nuFFT 
+    :param a bool: adjoint
+    :param i bool: inverse
+    :param d list: dimensions
+    :param D list: ()
+    :param t bool: Toeplitz embedding for inverse NUFFT
+    :param r bool: turn-off Toeplitz embedding for inverse NUFFT
+    :param c bool: Preconditioning for inverse NUFFT
+    :param l float: l2 regularization
+    :param m int: ()
+    :param P bool: periodic k-space
+    :param s bool: DFT
+    :param g bool: GPU (only inverse)
+    :param _1 bool: use/return oversampled grid
+    :param lowmem bool: Use low-mem mode of the nuFFT
 
     """
     usage_string = "nufft [-a] [-i] [-d d:d:d] [-t] [-r] [-c] [-l f] [-P] [-s] [-g] [-1] [--lowmem] traj input output"
@@ -2550,6 +2672,45 @@ def nufft(traj, input, a=None, i=None, d=None, D=None, t=None, r=None, c=None, l
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
+def onehotenc(input, r=None, i=None):
+    """
+    Transforms class labels to one-hot-encoded classes
+
+
+    :param input array:
+    :param r bool: get class label by maximum entry
+    :param i int: select dimension
+
+    """
+    usage_string = "onehotenc [-r] [-i d] input output"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'onehotenc '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if r is not None:
+        flag_str += f'-r '
+
+    if i is not None:
+        flag_str += f'-i {i} '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}input {NAME}output  "
+    cfl.writecfl(NAME + 'input', input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'output')
+    return outputs
+
 def ones(dims, dim):
     """
     Create an array filled with ones with {dims} dimensions of size {dim1} to {dimn}.
@@ -2585,7 +2746,7 @@ def pattern(kspace, s=None):
     Compute sampling pattern from kspace
 
     :param kspace array:
-    :param s int: Squash dimensions selected by bitmask 
+    :param s int: Squash dimensions selected by bitmask
 
     """
     usage_string = "pattern [-s d] kspace pattern"
@@ -2618,22 +2779,22 @@ def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=No
     """
     Image and k-space domain phantoms.
 
-    :param s int: nc sensitivities 
-    :param S int: Output nc sensitivities 
-    :param k bool: k-space 
-    :param t array: trajectory 
-    :param c bool: () 
-    :param a bool: () 
-    :param m bool: () 
-    :param G bool: geometric object phantom 
-    :param T bool: tubes phantom 
-    :param N int: Random tubes phantom and number 
-    :param B bool: BART logo 
-    :param x int: dimensions in y and z 
-    :param g int: select geometry for object phantom 
-    :param _3 bool: 3D 
-    :param b bool: basis functions for geometry 
-    :param r int: random seed initialization 
+    :param s int: nc sensitivities
+    :param S int: Output nc sensitivities
+    :param k bool: k-space
+    :param t array: trajectory
+    :param c bool: ()
+    :param a bool: ()
+    :param m bool: ()
+    :param G bool: geometric object phantom
+    :param T bool: tubes phantom
+    :param N int: Random tubes phantom and number
+    :param B bool: BART logo
+    :param x int: dimensions in y and z
+    :param g int: select geometry for object phantom
+    :param _3 bool: 3D
+    :param b bool: basis functions for geometry
+    :param r int: random seed initialization
 
     """
     usage_string = "phantom [-s d] [-S d] [-k] [-t file] [-G] [-T] [-N d] [-B] [-x d] [-g d] [-3] [-b] [-r d] output"
@@ -2711,46 +2872,47 @@ def pics(kspace, sensitivities, l=None, r=None, R=None, c=None, s=None, i=None, 
     """
     Parallel-imaging compressed-sensing reconstruction.
 
+
     :param kspace array:
     :param sensitivities array:
-    :param l SPECIAL: toggle l1-wavelet or l2 regularization. 
-    :param r float: regularization parameter 
-    :param R SPECIAL: generalized regularization options (-Rh for help) 
-    :param c bool: real-value constraint 
-    :param s float: iteration stepsize 
-    :param i int: max. number of iterations 
-    :param t array: k-space trajectory 
-    :param n bool: disable random wavelet cycle spinning 
-    :param N bool: do fully overlapping LLR blocks 
-    :param g bool: use GPU 
-    :param G int: use GPU device gpun 
-    :param p array: pattern or weights 
-    :param I bool: select IST 
-    :param b int: Lowrank block size 
-    :param e bool: Scale stepsize based on max. eigenvalue 
-    :param H bool: (hogwild) 
-    :param D bool: (ADMM dynamic step size) 
-    :param F bool: (fast) 
-    :param J bool: (ADMM residual balancing) 
-    :param T array: (truth file) 
-    :param W array: Warm start with <img> 
-    :param d int: Debug level 
-    :param O int: (reweighting) 
-    :param o float: (reweighting) 
-    :param u float: ADMM rho 
-    :param C int: ADMM max. CG iterations 
-    :param q float: (cclambda) 
-    :param f float: restrict FOV 
-    :param m bool: select ADMM 
-    :param w float: inverse scaling of the data 
-    :param S bool: re-scale the image after reconstruction 
-    :param L int: batch-mode 
-    :param K bool: randshift for NUFFT 
-    :param B array: temporal (or other) basis 
-    :param P float: Basis Pursuit formulation || y- Ax ||_2 <= eps 
-    :param a bool: select Primal Dual 
-    :param M bool: Simultaneous Multi-Slice reconstruction 
-    :param lowmem bool: Use low-mem mode of the nuFFT 
+    :param l SPECIAL: toggle l1-wavelet or l2 regularization.
+    :param r float: regularization parameter
+    :param R SPECIAL: generalized regularization options (-Rh for help)
+    :param c bool: real-value constraint
+    :param s float: iteration stepsize
+    :param i int: max. number of iterations
+    :param t array: k-space trajectory
+    :param n bool: disable random wavelet cycle spinning
+    :param N bool: do fully overlapping LLR blocks
+    :param g bool: use GPU
+    :param G int: use GPU device gpun
+    :param p array: pattern or weights
+    :param I bool: select IST
+    :param b int: Lowrank block size
+    :param e bool: Scale stepsize based on max. eigenvalue
+    :param H bool: (hogwild)
+    :param D bool: (ADMM dynamic step size)
+    :param F bool: (fast)
+    :param J bool: (ADMM residual balancing)
+    :param T array: (truth file)
+    :param W array: Warm start with <img>
+    :param d int: Debug level
+    :param O int: (reweighting)
+    :param o float: (reweighting)
+    :param u float: ADMM rho
+    :param C int: ADMM max. CG iterations
+    :param q float: (cclambda)
+    :param f float: restrict FOV
+    :param m bool: select ADMM
+    :param w float: inverse scaling of the data
+    :param S bool: re-scale the image after reconstruction
+    :param L int: batch-mode
+    :param K bool: randshift for NUFFT
+    :param B array: temporal (or other) basis
+    :param P float: Basis Pursuit formulation || y- Ax ||_2 <= eps
+    :param a bool: select Primal Dual
+    :param M bool: Simultaneous Multi-Slice reconstruction
+    :param lowmem bool: Use low-mem mode of the nuFFT
 
     """
     usage_string = "pics [-l ...] [-r f] [-R ...] [-c] [-s f] [-i d] [-t file] [-n] [-N] [-g] [-G d] [-p file] [-I] [-b d] [-e] [-W file] [-d d] [-u f] [-C d] [-f f] [-m] [-w f] [-S] [-L d] [-K] [-B file] [-P f] [-a] [-M] [-U,--lowmem] kspace sensitivities output"
@@ -2902,12 +3064,12 @@ def pocsense(kspace, sensitivities, i=None, r=None, l=None, g=None, o=None, m=No
 
     :param kspace array:
     :param sensitivities array:
-    :param i int: max. number of iterations 
-    :param r float: regularization parameter 
-    :param l int: toggle l1-wavelet or l2 regularization 
-    :param g bool: () 
-    :param o float: () 
-    :param m float: () 
+    :param i int: max. number of iterations
+    :param r float: regularization parameter
+    :param l int: toggle l1-wavelet or l2 regularization
+    :param g bool: ()
+    :param o float: ()
+    :param m float: ()
 
     """
     usage_string = "pocsense [-i d] [-r f] [-l d] kspace sensitivities output"
@@ -2956,19 +3118,19 @@ def poisson(Y=None, Z=None, y=None, z=None, C=None, v=None, V=None, e=None, D=No
     """
     Computes Poisson-disc sampling pattern.
 
-    :param Y int: size dimension 1 
-    :param Z int: size dimension 2 
-    :param y float: acceleration dim 1 
-    :param z float: acceleration dim 2 
-    :param C int: size of calibration region 
-    :param v bool: variable density 
-    :param V float: (variable density) 
-    :param e bool: elliptical scanning 
-    :param D float: () 
-    :param T int: () 
-    :param m bool: () 
-    :param R int: () 
-    :param s int: random seed 
+    :param Y int: size dimension 1
+    :param Z int: size dimension 2
+    :param y float: acceleration dim 1
+    :param z float: acceleration dim 2
+    :param C int: size of calibration region
+    :param v bool: variable density
+    :param V float: (variable density)
+    :param e bool: elliptical scanning
+    :param D float: ()
+    :param T int: ()
+    :param m bool: ()
+    :param R int: ()
+    :param s int: random seed
 
     """
     usage_string = "poisson [-Y d] [-Z d] [-y f] [-z f] [-C d] [-v] [-e] [-s d] output"
@@ -3037,8 +3199,8 @@ def pol2mask(poly, X=None, Y=None):
     Compute masks from polygons.
 
     :param poly array:
-    :param X int: size dimension 0 
-    :param Y int: size dimension 1 
+    :param X int: size dimension 0
+    :param Y int: size dimension 1
 
     """
     usage_string = "pol2mask [-X d] [-Y d] poly output"
@@ -3100,6 +3262,186 @@ def poly(L, N, a_):
 
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
+
+def reconet(kspace, sensitivities, weights, ref_out, train=None, eval=None, apply=None, gpu=None, load=None, batch_size=None, iterations=None, normalize=None, network=None, resnet_block=None, varnet_block=None, unet=None, data_consistency=None, initial_reco=None, shared_weights=None, no_shared_weights=None, shared_lambda=None, no_shared_lambda=None, rss_norm=None, trajectory=None, pattern=None, adjoint=None, psf=None, export=None, mask=None, valid_data=None, train_loss=None, valid_loss=None, train_algo=None, adam=None, iPALM=None, load_memory=None, lowmem=None, test=None, export_graph=None, B=None):
+    """
+    Trains or appplies a neural network for reconstruction.
+
+    :param kspace array:
+    :param sensitivities array:
+    :param weights INOUTFILE:
+    :param ref_out INOUTFILE:
+    :param train bool: train reconet
+    :param eval bool: evaluate reconet
+    :param apply bool: apply reconet
+    :param gpu bool: run on gpu
+    :param load array: load weights for continuing training
+    :param batch_size long: size of mini batches
+    :param iterations long: number of unrolled iterations
+    :param normalize bool: normalize data with maximum magnitude of adjoint reconstruction
+    :param network SUBOPT: select neural network
+    :param resnet_block SUBOPT: configure residual block
+    :param varnet_block SUBOPT: configure variational block
+    :param unet SUBOPT: configure U-Net block
+    :param data_consistency SUBOPT: configure data-consistency method
+    :param initial_reco SUBOPT: configure initialization
+    :param shared_weights bool: share weights across iterations
+    :param no_shared_weights bool: share weights across iterations
+    :param shared_lambda bool: share lambda across iterations
+    :param no_shared_lambda bool: share lambda across iterations
+    :param rss_norm bool: scale output image to rss normalization
+    :param trajectory array: trajectory
+    :param pattern array: sampling pattern / psf in kspace
+    :param adjoint INOUTFILE: (validation data adjoint (load or export))
+    :param psf INOUTFILE: (psf (load or export))
+    :param export bool: (export psf and adjoint reconstruction)
+    :param mask array: mask for computation of loss
+    :param valid_data SUBOPT: provide validation data
+    :param train_loss SUBOPT: configure the training loss
+    :param valid_loss SUBOPT: configure the validation loss
+    :param train_algo SUBOPT: configure general training parmeters
+    :param adam SUBOPT: configure Adam
+    :param iPALM SUBOPT: configure iPALM
+    :param load_memory bool: copy training data into memory
+    :param lowmem bool: reduce memory usage by checkpointing
+    :param test bool: very small network for tests
+    :param export_graph STRING: export graph for visualization
+    :param B array: (temporal (or other) basis)
+
+    """
+    usage_string = "reconet [-t,--train] [-e,--eval] [-a,--apply] [-g,--gpu] [-l,--load file] [-b,--batch-size d] [-I,--iterations d] [-n,--normalize] [-N,--network ...] [--resnet-block ...] [--varnet-block ...] [--unet ...] [--data-consistency ...] [--initial-reco ...] [--shared-weights] [--no-shared-weights] [--shared-lambda] [--no-shared-lambda] [--rss-norm] [--trajectory file] [--pattern file] [--mask file] [--valid-data ...] [--train-loss ...] [--valid-loss ...] [-T,--train-algo ...] [--adam ...] [--iPALM ...] [--load-memory] [--lowmem] [--test] [--export-graph string] kspace sensitivities weights ref/out"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'reconet '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if train is not None:
+        flag_str += f'--train '
+
+    if eval is not None:
+        flag_str += f'--eval '
+
+    if apply is not None:
+        flag_str += f'--apply '
+
+    if gpu is not None:
+        flag_str += f'--gpu '
+
+    if not isinstance(load, type(None)):
+        cfl.writecfl(NAME + 'load', load)
+        flag_str += f'--load {NAME}load '
+
+    if batch_size is not None:
+        flag_str += f'--batch-size {batch_size} '
+
+    if iterations is not None:
+        flag_str += f'--iterations {iterations} '
+
+    if normalize is not None:
+        flag_str += f'--normalize '
+
+    if network is not None:
+        flag_str += f'--network {network} '
+
+    if resnet_block is not None:
+        flag_str += f'--resnet-block {resnet_block} '
+
+    if varnet_block is not None:
+        flag_str += f'--varnet-block {varnet_block} '
+
+    if unet is not None:
+        flag_str += f'--unet {unet} '
+
+    if data_consistency is not None:
+        flag_str += f'--data-consistency {data_consistency} '
+
+    if initial_reco is not None:
+        flag_str += f'--initial-reco {initial_reco} '
+
+    if shared_weights is not None:
+        flag_str += f'--shared-weights '
+
+    if no_shared_weights is not None:
+        flag_str += f'--no-shared-weights '
+
+    if shared_lambda is not None:
+        flag_str += f'--shared-lambda '
+
+    if no_shared_lambda is not None:
+        flag_str += f'--no-shared-lambda '
+
+    if rss_norm is not None:
+        flag_str += f'--rss-norm '
+
+    if not isinstance(trajectory, type(None)):
+        cfl.writecfl(NAME + 'trajectory', trajectory)
+        flag_str += f'--trajectory {NAME}trajectory '
+
+    if not isinstance(pattern, type(None)):
+        cfl.writecfl(NAME + 'pattern', pattern)
+        flag_str += f'--pattern {NAME}pattern '
+
+    if adjoint is not None:
+        flag_str += f'--adjoint {adjoint} '
+
+    if psf is not None:
+        flag_str += f'--psf {psf} '
+
+    if export is not None:
+        flag_str += f'--export '
+
+    if not isinstance(mask, type(None)):
+        cfl.writecfl(NAME + 'mask', mask)
+        flag_str += f'--mask {NAME}mask '
+
+    if valid_data is not None:
+        flag_str += f'--valid-data {valid_data} '
+
+    if train_loss is not None:
+        flag_str += f'--train-loss {train_loss} '
+
+    if valid_loss is not None:
+        flag_str += f'--valid-loss {valid_loss} '
+
+    if train_algo is not None:
+        flag_str += f'--train-algo {train_algo} '
+
+    if adam is not None:
+        flag_str += f'--adam {adam} '
+
+    if iPALM is not None:
+        flag_str += f'--iPALM {iPALM} '
+
+    if load_memory is not None:
+        flag_str += f'--load-memory '
+
+    if lowmem is not None:
+        flag_str += f'--lowmem '
+
+    if test is not None:
+        flag_str += f'--test '
+
+    if export_graph is not None:
+        flag_str += f'--export-graph {export_graph} '
+
+    if not isinstance(B, type(None)):
+        cfl.writecfl(NAME + 'B', B)
+        flag_str += f'-B {NAME}B '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}kspace {NAME}sensitivities {weights} {ref_out}  "
+    cfl.writecfl(NAME + 'kspace', kspace)
+    cfl.writecfl(NAME + 'sensitivities', sensitivities)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
 
 def repmat(input, dimension, repetitions):
     """
@@ -3167,12 +3509,12 @@ def reshape(input, flags, dim):
 
 def resize(input, dim, size, c=None):
     """
-    Resizes an array along dimensions to sizes by truncating or zero-padding.
+    Resizes an array along dimensions to sizes by truncating or zero-padding. Please see doc/resize.txt for examples.
 
     :param dim multituple:
     :param size multituple:
     :param input array:
-    :param c bool: center 
+    :param c bool: center
 
     """
     usage_string = "resize [-c] dim1 size1 ... dimN sizeN input output"
@@ -3211,7 +3553,7 @@ def rmfreq(traj, k, N=None):
 
     :param traj array:
     :param k array:
-    :param N int: Number of harmonics [Default: 5] 
+    :param N int: Number of harmonics [Default: 5]
 
     """
     usage_string = "rmfreq [-N d] traj k k_cor"
@@ -3279,13 +3621,13 @@ def roistat(roi, input, b=None, C=None, S=None, M=None, D=None, E=None, V=None):
 
     :param roi array:
     :param input array:
-    :param b bool: Bessel's correction i.e. 1 / (n - 1) 
-    :param C bool: voxel count 
-    :param S bool: sum 
-    :param M bool: mean 
-    :param D bool: standard deviation 
-    :param E bool: energy 
-    :param V bool: variance 
+    :param b bool: Bessel's correction i.e. 1 / (n - 1)
+    :param C bool: voxel count
+    :param S bool: sum
+    :param M bool: mean
+    :param D bool: standard deviation
+    :param E bool: energy
+    :param V bool: variance
 
     """
     usage_string = "roistat [-b] [-C] [-S] [-M] [-D] [-E] [-V] roi input [output]"
@@ -3371,28 +3713,28 @@ inversion using {iter} iteration steps. Optionally outputs
 the sensitivities.
 
     :param kspace array:
-    :param i int: Number of Newton steps 
-    :param R float: (reduction factor) 
-    :param M float: (minimum for regularization) 
-    :param d int: Debug level 
-    :param c bool: Real-value constraint 
-    :param N bool: Do not normalize image with coil sensitivities 
-    :param m int: Number of ENLIVE maps to use in reconstruction 
-    :param U bool: Do not combine ENLIVE maps in output 
-    :param f float: restrict FOV 
-    :param p array: pattern / transfer function 
-    :param t array: kspace trajectory 
-    :param I array: File for initialization 
-    :param C array: (File for initialization with image space sensitivities) 
-    :param g bool: use gpu 
-    :param S bool: Re-scale image after reconstruction 
-    :param a float: (a in 1 + a * \Laplace^-b/2) 
-    :param b float: (b in 1 + a * \Laplace^-b/2) 
-    :param T float: temporal damping [default: 0.9] 
-    :param w float: (inverse scaling of the data) 
-    :param x list: Explicitly specify image dimensions 
-    :param A bool: (Alternative scaling) 
-    :param s bool: (Simultaneous Multi-Slice reconstruction) 
+    :param i int: Number of Newton steps
+    :param R float: (reduction factor)
+    :param M float: (minimum for regularization)
+    :param d int: Debug level
+    :param c bool: Real-value constraint
+    :param N bool: Do not normalize image with coil sensitivities
+    :param m int: Number of ENLIVE maps to use in reconstruction
+    :param U bool: Do not combine ENLIVE maps in output
+    :param f float: restrict FOV
+    :param p array: pattern / transfer function
+    :param t array: kspace trajectory
+    :param I array: File for initialization
+    :param C array: (File for initialization with image space sensitivities)
+    :param g bool: use gpu
+    :param S bool: Re-scale image after reconstruction
+    :param a float: (a in 1 + a * \Laplace^-b/2)
+    :param b float: (b in 1 + a * \Laplace^-b/2)
+    :param T float: temporal damping [default: 0.9]
+    :param w float: (inverse scaling of the data)
+    :param x list: Explicitly specify image dimensions
+    :param A bool: (Alternative scaling)
+    :param s bool: (Simultaneous Multi-Slice reconstruction)
 
     """
     usage_string = "rtnlinv [-i d] [-d d] [-c] [-N] [-m d] [-U] [-f f] [-p file] [-t file] [-I file] [-g] [-S] [-T f] [-x d:d:d] kspace output [sensitivities]"
@@ -3494,9 +3836,9 @@ def sake(kspace, i=None, s=None, o=None):
 data using low-rank matrix completion.
 
     :param kspace array:
-    :param i int: number of iterations 
-    :param s float: rel. size of the signal subspace 
-    :param o float: () 
+    :param i int: number of iterations
+    :param s float: rel. size of the signal subspace
+    :param o float: ()
 
     """
     usage_string = "ke [-i d] [-s f] kspace output"
@@ -3629,10 +3971,10 @@ def show(input, m=None, d=None, s=None, f=None):
     Outputs values or meta data.
 
     :param input array:
-    :param m bool: show meta data 
-    :param d int: show size of dimension 
-    :param s STRING: use <sep> as the separator 
-    :param f STRING: use <format> as the format. Default: %%+.6e%%+.6ei 
+    :param m bool: show meta data
+    :param d int: show size of dimension
+    :param s STRING: use <sep> as the separator
+    :param f STRING: use <format> as the format. Default: %%+.6e%%+.6ei
 
     """
     usage_string = "how [-m] [-d d] [-s string] [-f string] input"
@@ -3671,24 +4013,24 @@ def signal(F=None, B=None, T=None, M=None, G=None, fat=None, I=None, s=None, _0=
     """
     Analytical simulation tool.
 
-    :param F bool: FLASH 
-    :param B bool: bSSFP 
-    :param T bool: TSE 
-    :param M bool: MOLLI 
-    :param G bool: MGRE 
-    :param fat bool: Simulate additional fat component. 
-    :param I bool: inversion recovery 
-    :param s bool: inversion recovery starting from steady state 
-    :param _0 FLOAT_VEC3: range of off-resonance frequency (Hz) 
-    :param _1 FLOAT_VEC3: range of T1s (s) 
-    :param _2 FLOAT_VEC3: range of T2s (s) 
-    :param _3 FLOAT_VEC3: range of Mss 
-    :param r float: repetition time 
-    :param e float: echo time 
-    :param f float: flip ange 
-    :param t float: T1 relax period (second) for MOLLI 
-    :param n long: number of measurements 
-    :param b long: number of heart beats for MOLLI 
+    :param F bool: FLASH
+    :param B bool: bSSFP
+    :param T bool: TSE
+    :param M bool: MOLLI
+    :param G bool: MGRE
+    :param fat bool: Simulate additional fat component.
+    :param I bool: inversion recovery
+    :param s bool: inversion recovery starting from steady state
+    :param _0 FLOAT_VEC3: range of off-resonance frequency (Hz)
+    :param _1 FLOAT_VEC3: range of T1s (s)
+    :param _2 FLOAT_VEC3: range of T2s (s)
+    :param _3 FLOAT_VEC3: range of Mss
+    :param r float: repetition time
+    :param e float: echo time
+    :param f float: flip ange
+    :param t float: T1 relax period (second) for MOLLI
+    :param n long: number of measurements
+    :param b long: number of heart beats for MOLLI
 
     """
     usage_string = "ignal [-F] [-B] [-T] [-M] [-G] [--fat] [-I] [-s] [-0 f:f:f] [-1 f:f:f] [-2 f:f:f] [-3 f:f:f] [-r f] [-e f] [-f f] [-t f] [-n d] [-b d] basis-functions"
@@ -3840,29 +4182,29 @@ def sqpics(kspace, sensitivities, l=None, r=None, R=None, s=None, i=None, t=None
 
     :param kspace array:
     :param sensitivities array:
-    :param l SPECIAL: toggle l1-wavelet or l2 regularization. 
-    :param r float: regularization parameter 
-    :param R SPECIAL: generalized regularization options (-Rh for help) 
-    :param s float: iteration stepsize 
-    :param i int: max. number of iterations 
-    :param t array: k-space trajectory 
-    :param n bool: disable random wavelet cycle spinning 
-    :param g bool: use GPU 
-    :param p array: pattern or weights 
-    :param I bool: (select IST) 
-    :param b int: Lowrank block size 
-    :param e bool: Scale stepsize based on max. eigenvalue 
-    :param H bool: (hogwild) 
-    :param F bool: (fast) 
-    :param T array: (truth file) 
-    :param W array: Warm start with <img> 
-    :param d int: Debug level 
-    :param u float: ADMM rho 
-    :param C int: ADMM max. CG iterations 
-    :param f float: restrict FOV 
-    :param m bool: Select ADMM 
-    :param w float: scaling 
-    :param S bool: Re-scale the image after reconstruction 
+    :param l SPECIAL: toggle l1-wavelet or l2 regularization.
+    :param r float: regularization parameter
+    :param R SPECIAL: generalized regularization options (-Rh for help)
+    :param s float: iteration stepsize
+    :param i int: max. number of iterations
+    :param t array: k-space trajectory
+    :param n bool: disable random wavelet cycle spinning
+    :param g bool: use GPU
+    :param p array: pattern or weights
+    :param I bool: (select IST)
+    :param b int: Lowrank block size
+    :param e bool: Scale stepsize based on max. eigenvalue
+    :param H bool: (hogwild)
+    :param F bool: (fast)
+    :param T array: (truth file)
+    :param W array: Warm start with <img>
+    :param d int: Debug level
+    :param u float: ADMM rho
+    :param C int: ADMM max. CG iterations
+    :param f float: restrict FOV
+    :param m bool: Select ADMM
+    :param w float: scaling
+    :param S bool: Re-scale the image after reconstruction
 
     """
     usage_string = "qpics [-l ...] [-r f] [-R ...] [-s f] [-i d] [-t file] [-n] [-g] [-p file] [-b d] [-e] [-W file] [-d d] [-u f] [-C d] [-f f] [-m] [-w f] [-S] kspace sensitivities output"
@@ -3997,12 +4339,12 @@ def ssa(src, w=None, z=None, m=None, n=None, r=None, g=None):
     Perform SSA-FARY or Singular Spectrum Analysis. <src>: [samples, coordinates]
 
     :param src array:
-    :param w int: Window length 
-    :param z bool: Zeropadding [Default: True] 
-    :param m int: Remove mean [Default: True] 
-    :param n int: Normalize [Default: False] 
-    :param r int: Rank for backprojection. r < 0: Throw away first r components. r > 0: Use only first r components. 
-    :param g long: Bitmask for Grouping (long value!) 
+    :param w int: Window length
+    :param z bool: Zeropadding [Default: True]
+    :param m int: Remove mean [Default: True]
+    :param n int: Normalize [Default: False]
+    :param r int: Rank for backprojection. r < 0: Throw away first r components. r > 0: Use only first r components.
+    :param g long: Bitmask for Grouping (long value!)
 
     """
     usage_string = "[-w d] [-z] [-m d] [-n d] [-r d] [-g d] src EOF [S] [backprojection]"
@@ -4082,7 +4424,7 @@ def svd(input, e=None):
     Compute singular-value-decomposition (SVD).
 
     :param input array:
-    :param e bool: econ 
+    :param e bool: econ
 
     """
     usage_string = "vd [-e] input U S VH"
@@ -4149,13 +4491,13 @@ def threshold(input, llambda, H=None, W=None, L=None, D=None, B=None, j=None, b=
 
     :param llambda float:
     :param input array:
-    :param H bool: hard thresholding 
-    :param W bool: daubechies wavelet soft-thresholding 
-    :param L bool: locally low rank soft-thresholding 
-    :param D bool: divergence-free wavelet soft-thresholding 
-    :param B bool: thresholding with binary output 
-    :param j int: joint soft-thresholding 
-    :param b int: locally low rank block size 
+    :param H bool: hard thresholding
+    :param W bool: daubechies wavelet soft-thresholding
+    :param L bool: locally low rank soft-thresholding
+    :param D bool: divergence-free wavelet soft-thresholding
+    :param B bool: thresholding with binary output
+    :param j int: joint soft-thresholding
+    :param b int: locally low rank block size
 
     """
     usage_string = "threshold [-H] [-W] [-L] [-D] [-B] [-j d] [-b d] lambda input output"
@@ -4210,12 +4552,12 @@ be used for the image, and the other dimensions
 will be looped over.
 
     :param input array:
-    :param g float: gamma level 
-    :param c float: contrast level 
-    :param w float: window level 
-    :param d bool: write to dicom format (deprecated use extension .dcm) 
-    :param m bool: re-scale each image 
-    :param W bool: use dynamic windowing 
+    :param g float: gamma level
+    :param c float: contrast level
+    :param w float: window level
+    :param d bool: write to dicom format (deprecated use extension .dcm)
+    :param m bool: re-scale each image
+    :param W bool: use dynamic windowing
 
     """
     usage_string = "toimg [-g f] [-c f] [-w f] [-d] [-m] [-W] input output prefix"
@@ -4263,30 +4605,30 @@ def traj(x=None, y=None, d=None, e=None, a=None, t=None, m=None, l=None, g=None,
     """
     Computes k-space trajectories.
 
-    :param x int: readout samples 
-    :param y int: phase encoding lines 
-    :param d int: full readout samples 
-    :param e int: number of echoes 
-    :param a int: acceleration 
-    :param t int: turns 
-    :param m int: SMS multiband factor 
-    :param l bool: aligned partition angle 
-    :param g bool: golden angle in partition direction 
-    :param r bool: radial 
-    :param G bool: golden-ratio sampling 
-    :param H bool: halfCircle golden-ratio sampling 
-    :param s int: tiny golden angle 
-    :param D bool: projection angle in [0 360°) else in [0 180°) 
-    :param R float: rotate 
-    :param q FLOAT_VEC3: gradient delays: x y xy 
-    :param Q FLOAT_VEC3: (gradient delays: z xz yz) 
-    :param O bool: correct transverse gradient error for radial tajectories 
-    :param _3 bool: 3D 
-    :param c bool: asymmetric trajectory [DC sampled] 
-    :param E bool: multi-echo multi-spoke trajectory 
-    :param z VEC2: Undersampling in z-direction. 
-    :param C array: custom_angle file [phi + i * psi] 
-    :param V array: (custom_gdelays) 
+    :param x int: readout samples
+    :param y int: phase encoding lines
+    :param d int: full readout samples
+    :param e int: number of echoes
+    :param a int: acceleration
+    :param t int: turns
+    :param m int: SMS multiband factor
+    :param l bool: aligned partition angle
+    :param g bool: golden angle in partition direction
+    :param r bool: radial
+    :param G bool: golden-ratio sampling
+    :param H bool: halfCircle golden-ratio sampling
+    :param s int: tiny golden angle
+    :param D bool: projection angle in [0 360°) else in [0 180°)
+    :param R float: rotate
+    :param q FLOAT_VEC3: gradient delays: x y xy
+    :param Q FLOAT_VEC3: (gradient delays: z xz yz)
+    :param O bool: correct transverse gradient error for radial tajectories
+    :param _3 bool: 3D
+    :param c bool: asymmetric trajectory [DC sampled]
+    :param E bool: multi-echo multi-spoke trajectory
+    :param z VEC2: Undersampling in z-direction.
+    :param C array: custom_angle file [phi + i * psi]
+    :param V array: (custom_gdelays)
 
     """
     usage_string = "traj [-x d] [-y d] [-d d] [-e d] [-a d] [-t d] [-m d] [-l] [-g] [-r] [-G] [-H] [-s d] [-D] [-R f] [-q f:f:f] [-O] [-3] [-c] [-E] [-z d:d] [-C file] output"
@@ -4422,19 +4764,19 @@ def twixread(dat_file, x=None, r=None, y=None, z=None, s=None, v=None, c=None, n
     Read data from Siemens twix (.dat) files.
 
     :param dat_file array:
-    :param x long: number of samples (read-out) 
-    :param r long: radial lines 
-    :param y long: phase encoding steps 
-    :param z long: partition encoding steps 
-    :param s long: number of slices 
-    :param v long: number of averages 
-    :param c long: number of channels 
-    :param n long: number of repetitions 
-    :param a long: total number of ADCs 
-    :param A bool: automatic [guess dimensions] 
-    :param L bool: use linectr offset 
-    :param P bool: use partctr offset 
-    :param M bool: MPI mode 
+    :param x long: number of samples (read-out)
+    :param r long: radial lines
+    :param y long: phase encoding steps
+    :param z long: partition encoding steps
+    :param s long: number of slices
+    :param v long: number of averages
+    :param c long: number of channels
+    :param n long: number of repetitions
+    :param a long: total number of ADCs
+    :param A bool: automatic [guess dimensions]
+    :param L bool: use linectr offset
+    :param P bool: use partctr offset
+    :param M bool: MPI mode
 
     """
     usage_string = "twixread [-x d] [-r d] [-y d] [-z d] [-s d] [-v d] [-c d] [-n d] [-a d] [-A] [-L] [-P] [-M] dat file output"
@@ -4503,11 +4845,11 @@ def upat(Y=None, Z=None, y=None, z=None, c=None):
     """
     Create a sampling pattern.
 
-    :param Y long: size Y 
-    :param Z long: size Z 
-    :param y int: undersampling y 
-    :param z int: undersampling z 
-    :param c int: size of k-space center 
+    :param Y long: size Y
+    :param Z long: size Z
+    :param y int: undersampling y
+    :param z int: undersampling z
+    :param c int: size of k-space center
 
     """
     usage_string = "upat [-Y d] [-Z d] [-y d] [-z d] [-c d] output"
@@ -4616,8 +4958,8 @@ the number of commits (COMMITS) since this release and
 the abbreviated hash of the last commit (SHA). If there
 are local changes '-dirty' is added at the end.
 
-    :param t STRING: Check minimum version 
-    :param V bool: Output verbose info 
+    :param t STRING: Check minimum version
+    :param V bool: Output verbose info
 
     """
     usage_string = "version [-t string] [-V]"
@@ -4650,10 +4992,10 @@ def walsh(input, r=None, R=None, b=None, B=None):
     Estimate coil sensitivities using walsh method (use with ecaltwo).
 
     :param input array:
-    :param r list: Limits the size of the calibration region. 
-    :param R list: () 
-    :param b list: Block size. 
-    :param B list: () 
+    :param r list: Limits the size of the calibration region.
+    :param R list: ()
+    :param b list: Block size.
+    :param B list: ()
 
     """
     usage_string = "walsh [-r d:d:d] [-b d:d:d] input output"
@@ -4711,19 +5053,19 @@ Expected dimensions:
     :param maps array:
     :param wave array:
     :param kspace array:
-    :param r float: Soft threshold lambda for wavelet or locally low rank. 
-    :param b int: Block size for locally low rank. 
-    :param i int: Maximum number of iterations. 
-    :param s float: Step size for iterative method. 
-    :param c float: Continuation value for IST/FISTA. 
-    :param t float: Tolerance convergence condition for iterative method. 
-    :param e float: Maximum eigenvalue of normal operator if known. 
-    :param g bool: use GPU 
-    :param f bool: Reconstruct using FISTA instead of IST. 
-    :param H bool: Use hogwild in IST/FISTA. 
-    :param v bool: Split result to real and imaginary components. 
-    :param w bool: Use wavelet. 
-    :param l bool: Use locally low rank across the real and imaginary components. 
+    :param r float: Soft threshold lambda for wavelet or locally low rank.
+    :param b int: Block size for locally low rank.
+    :param i int: Maximum number of iterations.
+    :param s float: Step size for iterative method.
+    :param c float: Continuation value for IST/FISTA.
+    :param t float: Tolerance convergence condition for iterative method.
+    :param e float: Maximum eigenvalue of normal operator if known.
+    :param g bool: use GPU
+    :param f bool: Reconstruct using FISTA instead of IST.
+    :param H bool: Use hogwild in IST/FISTA.
+    :param v bool: Split result to real and imaginary components.
+    :param w bool: Use wavelet.
+    :param l bool: Use locally low rank across the real and imaginary components.
 
     """
     usage_string = "wave [-r f] [-b d] [-i d] [-s f] [-c f] [-t f] [-e f] [-g] [-f] [-H] [-v] [-w] [-l] maps wave kspace output"
@@ -4796,8 +5138,8 @@ def wavelet(input, bitmask, dim=None, a=None):
 
     :param bitmask int:
     :param input array:
-    :param dim tuple: None 
-    :param a bool: adjoint (specify dims) 
+    :param dim tuple: None
+    :param a bool: adjoint (specify dims)
 
     """
     usage_string = "wavelet [-a] bitmask [dim1 ... dimN ] input output"
@@ -4842,15 +5184,15 @@ bart wavepsf -c -x 768 -y 128 -r 0.1 -a 3000 -t 0.00001 -g 0.8 -s 17000 -n 6 wZ
 bart reshape 7 wZ 768 1 128 wZ wZ
 bart fmac wY wZ wYZ
 
-    :param c bool: Set to use a cosine gradient wave 
-    :param x int: Number of readout points 
-    :param y int: Number of phase encode points 
-    :param r float: Resolution of phase encode in cm 
-    :param a int: Readout duration in microseconds. 
-    :param t float: ADC sampling rate in seconds 
-    :param g float: Maximum gradient amplitude in Gauss/cm 
-    :param s float: Maximum gradient slew rate in Gauss/cm/second 
-    :param n int: Number of cycles in the gradient wave 
+    :param c bool: Set to use a cosine gradient wave
+    :param x int: Number of readout points
+    :param y int: Number of phase encode points
+    :param r float: Resolution of phase encode in cm
+    :param a int: Readout duration in microseconds.
+    :param t float: ADC sampling rate in seconds
+    :param g float: Maximum gradient amplitude in Gauss/cm
+    :param s float: Maximum gradient slew rate in Gauss/cm/second
+    :param n int: Number of cycles in the gradient wave
 
     """
     usage_string = "wavepsf [-c] [-x d] [-y d] [-r f] [-a d] [-t f] [-g f] [-s f] [-n d] output"
@@ -4909,9 +5251,9 @@ Optionally output whitening matrix and noise covariance matrix
 
     :param input array:
     :param ndata array:
-    :param o array: use external whitening matrix <optmat_in> 
-    :param c array: use external noise covariance matrix <covar_in> 
-    :param n bool: normalize variance to 1 using noise data <ndata> 
+    :param o array: use external whitening matrix <optmat_in>
+    :param c array: use external noise covariance matrix <covar_in>
+    :param n bool: normalize variance to 1 using noise data <ndata>
 
     """
     usage_string = "whiten [-o file] [-c file] [-n] input ndata output [optmat_out] [covar_out]"
@@ -4955,7 +5297,7 @@ def window(input, flags, H=None):
 
     :param flags long:
     :param input array:
-    :param H bool: Hann window 
+    :param H bool: Hann window
 
     """
     usage_string = "window [-H] flags input output"
@@ -5028,19 +5370,19 @@ Expected dimensions:
     :param phi array:
     :param reorder array:
     :param table array:
-    :param R SPECIAL: Generalized regularization options. (-Rh for help) 
-    :param b int: Block size for locally low rank. 
-    :param i int: Maximum number of iterations. 
-    :param j int: Maximum number of CG iterations in ADMM. 
-    :param s float: ADMM Rho value. 
-    :param e float: Eigenvalue to scale step size. (Optional.) 
-    :param F array: Go from shfl-coeffs to data-table. Pass in coeffs path. 
-    :param O array: Initialize reconstruction with guess. 
-    :param t float: Tolerance convergence condition for FISTA. 
-    :param g bool: Use GPU. 
-    :param K bool: Go from data-table to shuffling basis k-space. 
-    :param H bool: Use hogwild. 
-    :param v bool: Split coefficients to real and imaginary components. 
+    :param R SPECIAL: Generalized regularization options. (-Rh for help)
+    :param b int: Block size for locally low rank.
+    :param i int: Maximum number of iterations.
+    :param j int: Maximum number of CG iterations in ADMM.
+    :param s float: ADMM Rho value.
+    :param e float: Eigenvalue to scale step size. (Optional.)
+    :param F array: Go from shfl-coeffs to data-table. Pass in coeffs path.
+    :param O array: Initialize reconstruction with guess.
+    :param t float: Tolerance convergence condition for FISTA.
+    :param g bool: Use GPU.
+    :param K bool: Go from data-table to shuffling basis k-space.
+    :param H bool: Use hogwild.
+    :param v bool: Split coefficients to real and imaginary components.
 
     """
     usage_string = "wshfl [-R ...] [-b d] [-i d] [-j d] [-s f] [-e f] [-F file] [-O file] [-t f] [-g] [-K] [-H] [-v] maps wave phi reorder table output"
@@ -5146,7 +5488,7 @@ def zexp(input, i=None):
     Point-wise complex exponential.
 
     :param input array:
-    :param i bool: imaginary 
+    :param i bool: imaginary
 
     """
     usage_string = "zexp [-i] input output"
