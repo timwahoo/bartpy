@@ -87,13 +87,12 @@ def bench(T=None, S=None, s=None):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def bin(label, src, l=None, o=None, R=None, C=None, r=None, c=None, a=None, A=None):
+def bin(label, src, l=None, o=None, R=None, C=None, r=None, c=None, a=None, A=None, O=None, x=None, M=None):
     """
     Binning
 
     :param label array:
     :param src array:
-    :param x OUTFILE:
     :param l int: Bin according to labels: Specify cluster dimension
     :param o bool: Reorder according to labels
     :param R int: Quadrature Binning: Number of respiratory labels
@@ -102,9 +101,12 @@ def bin(label, src, l=None, o=None, R=None, C=None, r=None, c=None, a=None, A=No
     :param c VEC2: (Cardiac motion: Eigenvector index)
     :param a int: Quadrature Binning: Moving average
     :param A int: (Quadrature Binning: Cardiac moving average window)
+    :param O FLOAT_VEC2: Quadrature Binning: Angle offset for resp and card.
+    :param x STRING: (Output filtered cardiac EOFs)
+    :param M bool: Amplitude binning
 
     """
-    usage_string = "bin [-l d] [-o] [-R d] [-C d] [-a d] label src dst"
+    usage_string = "bin [-l d] [-o] [-R d] [-C d] [-a d] [-O f:f] [-M] label src dst"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'bin '
@@ -137,9 +139,18 @@ def bin(label, src, l=None, o=None, R=None, C=None, r=None, c=None, a=None, A=No
 
     if A is not None:
         flag_str += f'-A {A} '
+
+    if O is not None:
+        flag_str += f'-O {O} '
+
+    if x is not None:
+        flag_str += f'-x {x} '
+
+    if M is not None:
+        flag_str += f'-M '
     cmd_str += flag_str + opt_args + '  '
 
-    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}label {NAME}src {NAME}dst {NAME}x  "
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}label {NAME}src {NAME}dst  "
     cfl.writecfl(NAME + 'label', label)
     cfl.writecfl(NAME + 'src', src)
 
@@ -157,7 +168,7 @@ def bitmask(dim=None, b=None):
     Convert between a bitmask and set of dimensions.
 
     :param dim tuple: None
-    :param b bool: dimensions from bitmask use with exaclty one argument
+    :param b bool: dimensions from bitmask use with exactly one argument
 
     """
     usage_string = "bitmask [-b] [dim1 ... dimN ]"
@@ -808,7 +819,7 @@ def delta(dims, flags, size):
     outputs = cfl.readcfl(NAME + 'out')
     return outputs
 
-def ecalib(kspace, t=None, c=None, k=None, K=None, r=None, R=None, m=None, S=None, W=None, I=None, _1=None, P=None, O=None, b=None, V=None, C=None, g=None, p=None, n=None, v=None, a=None, d=None):
+def ecalib(kspace, t=None, c=None, k=None, K=None, r=None, R=None, m=None, S=None, W=None, I=None, _1=None, P=None, O=None, orthiter=None, b=None, V=None, C=None, g=None, p=None, n=None, v=None, a=None, d=None):
     """
     Estimate coil sensitivities using ESPIRiT calibration.
 Optionally outputs the eigenvalue maps.
@@ -827,6 +838,7 @@ Optionally outputs the eigenvalue maps.
     :param _1 bool: perform only first part of the calibration
     :param P bool: Do not rotate the phase with respect to the first principal component
     :param O bool: ()
+    :param orthiter int: ()
     :param b float: ()
     :param V bool: ()
     :param C bool: ()
@@ -886,6 +898,9 @@ Optionally outputs the eigenvalue maps.
 
     if O is not None:
         flag_str += f'-O '
+
+    if orthiter is not None:
+        flag_str += f'--orthiter {orthiter} '
 
     if b is not None:
         flag_str += f'-b {b} '
@@ -1265,14 +1280,13 @@ def extract(input, dim, start, end):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def fakeksp(image, kspace, sens, output, r=None):
+def fakeksp(image, kspace, sens, r=None):
     """
     Recreate k-space from image and sensitivities.
 
     :param image array:
     :param kspace array:
     :param sens array:
-    :param output array:
     :param r bool: replace measured samples with original values
 
     """
@@ -1294,13 +1308,15 @@ def fakeksp(image, kspace, sens, output, r=None):
     cfl.writecfl(NAME + 'image', image)
     cfl.writecfl(NAME + 'kspace', kspace)
     cfl.writecfl(NAME + 'sens', sens)
-    cfl.writecfl(NAME + 'output', output)
 
     if DEBUG:
         print(cmd_str)
 
 
     os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'output')
+    return outputs
 
 def fft(input, bitmask, u=None, i=None, n=None):
     """
@@ -1452,16 +1468,18 @@ def fftshift(input, bitmask, b=None):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def filter(input, m=None, l=None):
+def filter(input, m=None, l=None, G=None, a=None):
     """
     Apply filter.
 
     :param input array:
     :param m int: median filter along dimension dim
     :param l int: length of filter
+    :param G bool: geometric median
+    :param a int: Moving average filter along dimension dim
 
     """
-    usage_string = "filter [-m d] [-l d] input output"
+    usage_string = "filter [-m d] [-l d] [-G] [-a d] input output"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'filter '
@@ -1476,6 +1494,12 @@ def filter(input, m=None, l=None):
 
     if l is not None:
         flag_str += f'-l {l} '
+
+    if G is not None:
+        flag_str += f'-G '
+
+    if a is not None:
+        flag_str += f'-a {a} '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}input {NAME}output  "
@@ -1598,6 +1622,45 @@ If <input2> is not specified, assume all-ones.
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
+def fovshift(input, t=None, s=None):
+    """
+    Shifts FOV.
+
+    :param input array:
+    :param t array: k-space trajectory
+    :param s FLOAT_VEC3: FOV shift
+
+    """
+    usage_string = "fovshift [-t file] [-s f:f:f] input output"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'fovshift '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if not isinstance(t, type(None)):
+        cfl.writecfl(NAME + 't', t)
+        flag_str += f'-t {NAME}t '
+
+    if s is not None:
+        flag_str += f'-s {s} '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}input {NAME}output  "
+    cfl.writecfl(NAME + 'input', input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'output')
+    return outputs
+
 def homodyne(input, dim, fraction, r=None, I=None, C=None, P=None, n=None):
     """
     Perform homodyne reconstruction along dimension dim.
@@ -1640,6 +1703,48 @@ def homodyne(input, dim, fraction, r=None, I=None, C=None, P=None, n=None):
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {dim} {fraction} {NAME}input {NAME}output  "
+    cfl.writecfl(NAME + 'input', input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'output')
+    return outputs
+
+#def ictv(input, llambda, flags, flags, i=None, u=None):
+def ictv(input, llambda, flags, i=None, u=None):
+    """
+    Infimal convolution of total variation along dims specified by flags.
+
+    :param llambda float:
+    :param flags int:
+    :param flags int:
+    :param input array:
+    :param i int: max. iterations
+    :param u float: rho in ADMM
+
+    """
+    usage_string = "ictv [-i d] [-u f] lambda flags flags input output"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'ictv '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if i is not None:
+        flag_str += f'-i {i} '
+
+    if u is not None:
+        flag_str += f'-u {u} '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {llambda} {flags} {flags} {NAME}input {NAME}output  "
     cfl.writecfl(NAME + 'input', input)
 
     if DEBUG:
@@ -1962,6 +2067,54 @@ def mandelbrot(s=None, n=None, t=None, z=None, r=None, i=None):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
+def measure(reference, input, mse=None, mse_mag=None, ssim=None, psnr=None):
+    """
+    
+
+    :param reference array:
+    :param input array:
+    :param mse bool: mse
+    :param mse_mag bool: mse of rss (over coil dim)
+    :param ssim bool: ssim of rss (over coil dim) and mean over other dims
+    :param psnr bool: psnr of rss (over coil dim) and mean over other dims
+
+    """
+    usage_string = "measure [--mse] [--mse-mag] [--ssim] [--psnr] reference input [output]"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'measure '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if mse is not None:
+        flag_str += f'--mse '
+
+    if mse_mag is not None:
+        flag_str += f'--mse-mag '
+
+    if ssim is not None:
+        flag_str += f'--ssim '
+
+    if psnr is not None:
+        flag_str += f'--psnr '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}reference {NAME}input {NAME}output  "
+    cfl.writecfl(NAME + 'reference', reference)
+    cfl.writecfl(NAME + 'input', input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'output')
+    return outputs
+
 def mip(input, bitmask, m=None, a=None):
     """
     Maximum (minimum) intensity projection (MIP) along dimensions specified by bitmask.
@@ -2001,7 +2154,49 @@ def mip(input, bitmask, m=None, a=None):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, R=None, T=None, j=None, u=None, C=None, s=None, B=None, b=None, d=None, N=None, f=None, p=None, J=None, M=None, O=None, g=None, I=None, t=None, o=None, k=None, kfilter_1=None, kfilter_2=None, n=None, no_alpha_min_exp_decay=None, sobolev_a=None, sobolev_b=None, fat_spec_0=None):
+def mnist(input, weights, ref_output, apply=None, train=None, gpu=None):
+    """
+    Trains or applies a MNIST network.
+This network is to demonstrate how a neural network can be implemented in BART.
+
+    :param input array:
+    :param weights INOUTFILE:
+    :param ref_output INOUTFILE:
+    :param apply bool: apply nnet
+    :param train bool: trains network
+    :param gpu bool: run on gpu
+
+    """
+    usage_string = "mnist [-a,--apply] [-t,--train] [-g,--gpu] input weights ref/output"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'mnist '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if apply is not None:
+        flag_str += f'--apply '
+
+    if train is not None:
+        flag_str += f'--train '
+
+    if gpu is not None:
+        flag_str += f'--gpu '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}input {weights} {ref_output}  "
+    cfl.writecfl(NAME + 'input', input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+def moba(kspace, TI_TE, r=None, L=None, P=None, F=None, G=None, bloch=None, m=None, l=None, i=None, reduction=None, T=None, j=None, u=None, C=None, s=None, B=None, b=None, d=None, N=None, f=None, p=None, J=None, M=None, O=None, g=None, multi_gpu=None, I=None, t=None, o=None, img_dims=None, k=None, kfilter_1=None, kfilter_2=None, e=None, n=None, no_alpha_min_exp_decay=None, sobolev_a=None, sobolev_b=None, fat_spec_0=None, scale_data=None, scale_psf=None, normalize_scaling=None, seq=None, sim=None, other=None):
     """
     Model-based nonlinear inverse reconstruction
 
@@ -2009,18 +2204,20 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     :param TI_TE array:
     :param r SPECIAL: generalized regularization options (-rh for help)
     :param L bool: T1 mapping using model-based look-locker
+    :param P bool: T1 mapping using reparameterized (M0 R1 alpha) model-based look-locker (TR required!)
     :param F bool: T2 mapping using model-based Fast Spin Echo
     :param G bool: T2* mapping using model-based multiple gradient echo
+    :param bloch bool: Bloch model-based reconstruction
     :param m int: Select the MGRE model from enum  WF = 0 WFR2S WF2R2S R2S PHASEDIFF  [default: WFR2S]
     :param l int: toggle l1-wavelet or l2 regularization.
     :param i int: Number of Newton steps
-    :param R float: reduction factor
+    :param reduction float: reduction factor
     :param T float: damping on temporal frames
-    :param j float: Minimum regu. parameter
+    :param j float: Minimum regularization parameter
     :param u float: ADMM rho [default: 0.01]
     :param C int: inner iterations
     :param s float: step size
-    :param B float: lower bound for relaxivity
+    :param B float: lower bound for relaxation
     :param b FLOAT_VEC2: B0 field: spatial smooth level; scaling [default: 222.; 1.]
     :param d int: Debug level
     :param N bool: (normalize)
@@ -2030,20 +2227,29 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     :param M bool: Simultaneous Multi-Slice reconstruction
     :param O bool: (Output original maps from reconstruction without post processing)
     :param g bool: use gpu
+    :param multi_gpu int: number of gpus to use
     :param I array: File for initialization
-    :param t array: 
-    :param o float: Oversampling factor for gridding [default: 1.25]
+    :param t array: K-space trajectory
+    :param o float: Oversampling factor for gridding [default: 1.]
+    :param img_dims list: dimensions
     :param k bool: k-space edge filter for non-Cartesian trajectories
     :param kfilter_1 bool: k-space edge filter 1
     :param kfilter_2 bool: k-space edge filter 2
-    :param n bool: disable normlization of parameter maps for thresholding
-    :param no_alpha_min_exp_decay bool: (Use hard minimum instead of exponentional decay towards alpha_min)
+    :param e float: strength for k-space edge filter [default: 2e-3]
+    :param n bool: (disable normalization of parameter maps for thresholding)
+    :param no_alpha_min_exp_decay bool: (Use hard minimum instead of exponential decay towards alpha_min)
     :param sobolev_a float: (a in 1 + a * \Laplace^-b/2)
     :param sobolev_b float: (b in 1 + a * \Laplace^-b/2)
     :param fat_spec_0 bool: select fat spectrum from ISMRM fat-water tool
+    :param scale_data float: scaling factor for data
+    :param scale_psf float: (scaling factor for PSF)
+    :param normalize_scaling bool: (normalize scaling by data / PSF)
+    :param seq SUBOPT: configure sequence parameters
+    :param sim SUBOPT: configure simulation parameters
+    :param other SUBOPT: configure other parameters
 
     """
-    usage_string = "moba [-r ...] [-L] [-F] [-G] [-m d] [-l d] [-i d] [-R f] [-T f] [-j f] [-u f] [-C d] [-s f] [-B f] [-b f:f] [-d d] [-f f] [-p file] [-J] [-M] [-g] [-I file] [-t file] [-o f] [-k] [--kfilter-1] [--kfilter-2] [-n] [--fat_spec_0] kspace TI/TE output [sensitivities]"
+    usage_string = "moba [-r ...] [-L] [-P] [-F] [-G] [--bloch] [-m d] [-l d] [-i d] [-R,--reduction f] [-T f] [-j f] [-u f] [-C d] [-s f] [-B f] [-b f:f] [-d d] [-f f] [-p file] [-J] [-M] [-g] [--multi-gpu d] [-I file] [-t file] [-o f] [--img_dims d:d:d] [-k] [--kfilter-1] [--kfilter-2] [-e f] [--fat_spec_0] [--scale_data f] [--seq ...] [--sim ...] [--other ...] kspace TI/TE output [sensitivities]"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'moba '
@@ -2059,11 +2265,17 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     if L is not None:
         flag_str += f'-L '
 
+    if P is not None:
+        flag_str += f'-P '
+
     if F is not None:
         flag_str += f'-F '
 
     if G is not None:
         flag_str += f'-G '
+
+    if bloch is not None:
+        flag_str += f'--bloch '
 
     if m is not None:
         flag_str += f'-m {m} '
@@ -2074,8 +2286,8 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     if i is not None:
         flag_str += f'-i {i} '
 
-    if R is not None:
-        flag_str += f'-R {R} '
+    if reduction is not None:
+        flag_str += f'--reduction {reduction} '
 
     if T is not None:
         flag_str += f'-T {T} '
@@ -2123,6 +2335,9 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     if g is not None:
         flag_str += f'-g '
 
+    if multi_gpu is not None:
+        flag_str += f'--multi-gpu {multi_gpu} '
+
     if not isinstance(I, type(None)):
         cfl.writecfl(NAME + 'I', I)
         flag_str += f'-I {NAME}I '
@@ -2134,6 +2349,9 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     if o is not None:
         flag_str += f'-o {o} '
 
+    if img_dims is not None:
+        flag_str += f'--img_dims {":".join([str(x) for x in img_dims])} '
+
     if k is not None:
         flag_str += f'-k '
 
@@ -2142,6 +2360,9 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
 
     if kfilter_2 is not None:
         flag_str += f'--kfilter-2 '
+
+    if e is not None:
+        flag_str += f'-e {e} '
 
     if n is not None:
         flag_str += f'-n '
@@ -2157,6 +2378,24 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
 
     if fat_spec_0 is not None:
         flag_str += f'--fat_spec_0 '
+
+    if scale_data is not None:
+        flag_str += f'--scale_data {scale_data} '
+
+    if scale_psf is not None:
+        flag_str += f'--scale_psf {scale_psf} '
+
+    if normalize_scaling is not None:
+        flag_str += f'--normalize_scaling '
+
+    if seq is not None:
+        flag_str += f'--seq {seq} '
+
+    if sim is not None:
+        flag_str += f'--sim {sim} '
+
+    if other is not None:
+        flag_str += f'--other {other} '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}kspace {NAME}TI_TE {NAME}output {NAME}sensitivities  "
@@ -2172,20 +2411,22 @@ def moba(kspace, TI_TE, r=None, L=None, F=None, G=None, m=None, l=None, i=None, 
     outputs = cfl.readcfl(NAME + 'output'), cfl.readcfl(NAME + 'sensitivities')
     return outputs
 
-def mobafit(TE, echo_images, G=None, m=None, i=None, p=None, g=None):
+def mobafit(enc, echo_contrast_images, T=None, G=None, D=None, m=None, i=None, p=None, g=None):
     """
-    Pixel-wise fitting of sequence models.
+    Pixel-wise fitting of physical signal models.
 
-    :param TE array:
-    :param echo_images array:
+    :param enc array:
+    :param echo_contrast_images array:
+    :param T bool: TSE
     :param G bool: MGRE
+    :param D bool: diffusion
     :param m int: Select the MGRE model from enum  WF = 0 WFR2S WF2R2S R2S PHASEDIFF  [default: WFR2S]
     :param i int: Number of IRGNM steps
     :param p list: (patch size)
     :param g bool: use gpu
 
     """
-    usage_string = "mobafit [-G] [-m d] [-i d] [-g] TE echo images [paramters]"
+    usage_string = "mobafit [-T] [-G] [-D] [-m d] [-i d] [-g] enc echo/contrast images [coefficients]"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'mobafit '
@@ -2195,8 +2436,14 @@ def mobafit(TE, echo_images, G=None, m=None, i=None, p=None, g=None):
 
     multituples = []
 
+    if T is not None:
+        flag_str += f'-T '
+
     if G is not None:
         flag_str += f'-G '
+
+    if D is not None:
+        flag_str += f'-D '
 
     if m is not None:
         flag_str += f'-m {m} '
@@ -2211,9 +2458,9 @@ def mobafit(TE, echo_images, G=None, m=None, i=None, p=None, g=None):
         flag_str += f'-g '
     cmd_str += flag_str + opt_args + '  '
 
-    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}TE {NAME}echo_images {NAME}paramters  "
-    cfl.writecfl(NAME + 'TE', TE)
-    cfl.writecfl(NAME + 'echo_images', echo_images)
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}enc {NAME}echo_contrast_images {NAME}coefficients  "
+    cfl.writecfl(NAME + 'enc', enc)
+    cfl.writecfl(NAME + 'echo_contrast_images', echo_contrast_images)
 
     if DEBUG:
         print(cmd_str)
@@ -2221,7 +2468,54 @@ def mobafit(TE, echo_images, G=None, m=None, i=None, p=None, g=None):
 
     os.system(cmd_str)
 
-    outputs = cfl.readcfl(NAME + 'paramters')
+    outputs = cfl.readcfl(NAME + 'coefficients')
+    return outputs
+
+def morphop(binary_input, mask_size, e=None, d=None, o=None, c=None):
+    """
+    Perform morphological operators on binary data with odd mask sizes.
+
+    :param mask_size int:
+    :param binary_input array:
+    :param e bool: EROSION (default)
+    :param d bool: DILATION
+    :param o bool: OPENING
+    :param c bool: CLOSING
+
+    """
+    usage_string = "morphop [-e] [-d] [-o] [-c] mask_size binary input [binary output]"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'morphop '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if e is not None:
+        flag_str += f'-e '
+
+    if d is not None:
+        flag_str += f'-d '
+
+    if o is not None:
+        flag_str += f'-o '
+
+    if c is not None:
+        flag_str += f'-c '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {mask_size} {NAME}binary_input {NAME}binary_output  "
+    cfl.writecfl(NAME + 'binary_input', binary_input)
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'binary_output')
     return outputs
 
 def multicfl(cfl, s=None):
@@ -2395,7 +2689,7 @@ def nnet(input, weights, ref_output, apply=None, eval=None, train=None, gpu=None
     :param valid_data SUBOPT: provide validation data
     :param train_algo SUBOPT: configure general training parmeters
     :param adam SUBOPT: configure Adam
-    :param load_memory bool: load files int memory
+    :param load_memory bool: load files into memory
     :param export_graph STRING: export graph for visualization
 
     """
@@ -2775,7 +3069,7 @@ def pattern(kspace, s=None):
     outputs = cfl.readcfl(NAME + 'pattern')
     return outputs
 
-def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=None, N=None, B=None, x=None, g=None, _3=None, b=None, r=None):
+def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=None, NIST=None, SONAR=None, N=None, B=None, x=None, g=None, _3=None, b=None, r=None, rotation_angle=None, rotation_steps=None):
     """
     Image and k-space domain phantoms.
 
@@ -2788,6 +3082,8 @@ def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=No
     :param m bool: ()
     :param G bool: geometric object phantom
     :param T bool: tubes phantom
+    :param NIST bool: NIST phantom (T2 sphere)
+    :param SONAR bool: Diagnostic Sonar phantom
     :param N int: Random tubes phantom and number
     :param B bool: BART logo
     :param x int: dimensions in y and z
@@ -2795,9 +3091,11 @@ def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=No
     :param _3 bool: 3D
     :param b bool: basis functions for geometry
     :param r int: random seed initialization
+    :param rotation_angle float: Angle of Rotation
+    :param rotation_steps int: Number of rotation steps
 
     """
-    usage_string = "phantom [-s d] [-S d] [-k] [-t file] [-G] [-T] [-N d] [-B] [-x d] [-g d] [-3] [-b] [-r d] output"
+    usage_string = "phantom [-s d] [-S d] [-k] [-t file] [-G] [-T] [--NIST] [--SONAR] [-N d] [-B] [-x d] [-g d] [-3] [-b] [-r d] [--rotation-angle f] [--rotation-steps d] output"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'phantom '
@@ -2835,6 +3133,12 @@ def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=No
     if T is not None:
         flag_str += f'-T '
 
+    if NIST is not None:
+        flag_str += f'--NIST '
+
+    if SONAR is not None:
+        flag_str += f'--SONAR '
+
     if N is not None:
         flag_str += f'-N {N} '
 
@@ -2855,6 +3159,12 @@ def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=No
 
     if r is not None:
         flag_str += f'-r {r} '
+
+    if rotation_angle is not None:
+        flag_str += f'--rotation-angle {rotation_angle} '
+
+    if rotation_steps is not None:
+        flag_str += f'--rotation-steps {rotation_steps} '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}output  "
@@ -2868,13 +3178,14 @@ def phantom(s=None, S=None, k=None, t=None, c=None, a=None, m=None, G=None, T=No
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def pics(kspace, sensitivities, l=None, r=None, R=None, c=None, s=None, i=None, t=None, n=None, N=None, g=None, G=None, p=None, I=None, b=None, e=None, H=None, D=None, F=None, J=None, T=None, W=None, d=None, O=None, o=None, u=None, C=None, q=None, f=None, m=None, w=None, S=None, L=None, K=None, B=None, P=None, a=None, M=None, lowmem=None):
+def pics(kspace, sensitivities, l=None, r=None, R=None, c=None, s=None, i=None, t=None, n=None, N=None, g=None, G=None, p=None, I=None, b=None, e=None, H=None, D=None, F=None, J=None, T=None, W=None, d=None, O=None, o=None, u=None, C=None, q=None, f=None, m=None, w=None, S=None, L=None, K=None, B=None, P=None, a=None, M=None, lowmem=None, psf_import=None, wavelet=None):
     """
     Parallel-imaging compressed-sensing reconstruction.
 
 
     :param kspace array:
     :param sensitivities array:
+    :param psf_export OUTFILE:
     :param l SPECIAL: toggle l1-wavelet or l2 regularization.
     :param r float: regularization parameter
     :param R SPECIAL: generalized regularization options (-Rh for help)
@@ -2913,9 +3224,11 @@ def pics(kspace, sensitivities, l=None, r=None, R=None, c=None, s=None, i=None, 
     :param a bool: select Primal Dual
     :param M bool: Simultaneous Multi-Slice reconstruction
     :param lowmem bool: Use low-mem mode of the nuFFT
+    :param psf_import array: Import PSF from file
+    :param wavelet STRING: wavelet type (haar dau2 cdf44)
 
     """
-    usage_string = "pics [-l ...] [-r f] [-R ...] [-c] [-s f] [-i d] [-t file] [-n] [-N] [-g] [-G d] [-p file] [-I] [-b d] [-e] [-W file] [-d d] [-u f] [-C d] [-f f] [-m] [-w f] [-S] [-L d] [-K] [-B file] [-P f] [-a] [-M] [-U,--lowmem] kspace sensitivities output"
+    usage_string = "pics [-l ...] [-r f] [-R ...] [-c] [-s f] [-i d] [-t file] [-n] [-N] [-g] [-G d] [-p file] [-I] [-b d] [-e] [-W file] [-d d] [-u f] [-C d] [-f f] [-m] [-w f] [-S] [-L d] [-K] [-B file] [-P f] [-a] [-M] [-U,--lowmem] [--psf_export file] [--psf_import file] [--wavelet string] kspace sensitivities output"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'pics '
@@ -3043,9 +3356,16 @@ def pics(kspace, sensitivities, l=None, r=None, R=None, c=None, s=None, i=None, 
 
     if lowmem is not None:
         flag_str += f'--lowmem '
+
+    if not isinstance(psf_import, type(None)):
+        cfl.writecfl(NAME + 'psf_import', psf_import)
+        flag_str += f'--psf_import {NAME}psf_import '
+
+    if wavelet is not None:
+        flag_str += f'--wavelet {wavelet} '
     cmd_str += flag_str + opt_args + '  '
 
-    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}kspace {NAME}sensitivities {NAME}output  "
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}kspace {NAME}sensitivities {NAME}output {NAME}psf_export  "
     cfl.writecfl(NAME + 'kspace', kspace)
     cfl.writecfl(NAME + 'sensitivities', sensitivities)
 
@@ -3547,16 +3867,17 @@ def resize(input, dim, size, c=None):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def rmfreq(traj, k, N=None):
+def rmfreq(traj, k, N=None, M=None):
     """
     Remove angle-dependent frequency
 
     :param traj array:
     :param k array:
     :param N int: Number of harmonics [Default: 5]
+    :param M STRING: Contrast modulation file
 
     """
-    usage_string = "rmfreq [-N d] traj k k_cor"
+    usage_string = "rmfreq [-N d] [-M string] traj k k_cor"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'rmfreq '
@@ -3568,6 +3889,9 @@ def rmfreq(traj, k, N=None):
 
     if N is not None:
         flag_str += f'-N {N} '
+
+    if M is not None:
+        flag_str += f'-M {M} '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}traj {NAME}k {NAME}k_cor  "
@@ -4009,7 +4333,7 @@ def show(input, m=None, d=None, s=None, f=None):
 
     os.system(cmd_str)
 
-def signal(F=None, B=None, T=None, M=None, G=None, fat=None, I=None, s=None, _0=None, _1=None, _2=None, _3=None, r=None, e=None, f=None, t=None, n=None, b=None):
+def signal(F=None, B=None, T=None, M=None, G=None, fat=None, I=None, s=None, _0=None, _1=None, _2=None, _3=None, r=None, e=None, f=None, t=None, n=None, b=None, av_spokes=None):
     """
     Analytical simulation tool.
 
@@ -4031,9 +4355,10 @@ def signal(F=None, B=None, T=None, M=None, G=None, fat=None, I=None, s=None, _0=
     :param t float: T1 relax period (second) for MOLLI
     :param n long: number of measurements
     :param b long: number of heart beats for MOLLI
+    :param av_spokes int: Number of averaged consecutive spokes
 
     """
-    usage_string = "ignal [-F] [-B] [-T] [-M] [-G] [--fat] [-I] [-s] [-0 f:f:f] [-1 f:f:f] [-2 f:f:f] [-3 f:f:f] [-r f] [-e f] [-f f] [-t f] [-n d] [-b d] basis-functions"
+    usage_string = "ignal [-F] [-B] [-T] [-M] [-G] [--fat] [-I] [-s] [-0 f:f:f] [-1 f:f:f] [-2 f:f:f] [-3 f:f:f] [-r f] [-e f] [-f f] [-t f] [-n d] [-b d] [--av-spokes d] basis-functions"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'signal '
@@ -4096,6 +4421,9 @@ def signal(F=None, B=None, T=None, M=None, G=None, fat=None, I=None, s=None, _0=
 
     if b is not None:
         flag_str += f'-b {b} '
+
+    if av_spokes is not None:
+        flag_str += f'--av-spokes {av_spokes} '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}basis_functions  "
@@ -4107,6 +4435,70 @@ def signal(F=None, B=None, T=None, M=None, G=None, fat=None, I=None, s=None, _0=
     os.system(cmd_str)
 
     outputs = cfl.readcfl(NAME + 'basis_functions')
+    return outputs
+
+def sim(dB1=None, T1=None, T2=None, ROT=None, ODE=None, STM=None, split_dim=None, seq=None, other=None):
+    """
+    simulation tool
+
+    :param dB1 dM0: None
+    :param T1 FLOAT_VEC3: range of T1 values
+    :param T2 FLOAT_VEC3: range of T2 values
+    :param ROT bool: homogeneously discretized simulation based on rotational matrices
+    :param ODE bool: full ordinary differential equation solver based simulation (default)
+    :param STM bool: state-transition matrix based simulation
+    :param split_dim bool: Split output in x y and z dimensional parts
+    :param seq SUBOPT: configure sequence parameter
+    :param other SUBOPT: configure other parameters
+
+    """
+    usage_string = "im [-1,--T1 f:f:f] [-2,--T2 f:f:f] [--ROT] [--ODE] [--STM] [--split-dim] [--seq ...] [--other ...] signal: Mxy [Partial derivatives: dR1, dM0, dR2, dB1]"
+
+    cmd_str = f'{BART_PATH} '
+    cmd_str += 'sim '
+    flag_str = ''
+
+    opt_args = f''
+
+    multituples = []
+
+    if dB1 != None:
+            opt_args += '{dB1}'
+
+    if T1 is not None:
+        flag_str += f'--T1 {T1} '
+
+    if T2 is not None:
+        flag_str += f'--T2 {T2} '
+
+    if ROT is not None:
+        flag_str += f'--ROT '
+
+    if ODE is not None:
+        flag_str += f'--ODE '
+
+    if STM is not None:
+        flag_str += f'--STM '
+
+    if split_dim is not None:
+        flag_str += f'--split-dim '
+
+    if seq is not None:
+        flag_str += f'--seq {seq} '
+
+    if other is not None:
+        flag_str += f'--other {other} '
+    cmd_str += flag_str + opt_args + '  '
+
+    cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}signal__Mxy  "
+
+    if DEBUG:
+        print(cmd_str)
+
+
+    os.system(cmd_str)
+
+    outputs = cfl.readcfl(NAME + 'signal__Mxy')
     return outputs
 
 def slice(input, dim, pos):
@@ -4601,7 +4993,7 @@ will be looped over.
     outputs = cfl.readcfl(NAME + 'output_prefix')
     return outputs
 
-def traj(x=None, y=None, d=None, e=None, a=None, t=None, m=None, l=None, g=None, r=None, G=None, H=None, s=None, D=None, R=None, q=None, Q=None, O=None, _3=None, c=None, E=None, z=None, C=None, V=None):
+def traj(x=None, y=None, d=None, e=None, a=None, t=None, m=None, l=None, g=None, r=None, G=None, H=None, s=None, D=None, o=None, R=None, q=None, Q=None, O=None, _3=None, c=None, E=None, z=None, C=None, V=None):
     """
     Computes k-space trajectories.
 
@@ -4619,6 +5011,7 @@ def traj(x=None, y=None, d=None, e=None, a=None, t=None, m=None, l=None, g=None,
     :param H bool: halfCircle golden-ratio sampling
     :param s int: tiny golden angle
     :param D bool: projection angle in [0 360°) else in [0 180°)
+    :param o float: oversampling factor
     :param R float: rotate
     :param q FLOAT_VEC3: gradient delays: x y xy
     :param Q FLOAT_VEC3: (gradient delays: z xz yz)
@@ -4631,7 +5024,7 @@ def traj(x=None, y=None, d=None, e=None, a=None, t=None, m=None, l=None, g=None,
     :param V array: (custom_gdelays)
 
     """
-    usage_string = "traj [-x d] [-y d] [-d d] [-e d] [-a d] [-t d] [-m d] [-l] [-g] [-r] [-G] [-H] [-s d] [-D] [-R f] [-q f:f:f] [-O] [-3] [-c] [-E] [-z d:d] [-C file] output"
+    usage_string = "traj [-x d] [-y d] [-d d] [-e d] [-a d] [-t d] [-m d] [-l] [-g] [-r] [-G] [-H] [-s d] [-D] [-o f] [-R f] [-q f:f:f] [-O] [-3] [-c] [-E] [-z d:d] [-C file] output"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'traj '
@@ -4682,6 +5075,9 @@ def traj(x=None, y=None, d=None, e=None, a=None, t=None, m=None, l=None, g=None,
 
     if D is not None:
         flag_str += f'-D '
+
+    if o is not None:
+        flag_str += f'-o {o} '
 
     if R is not None:
         flag_str += f'-R {R} '
@@ -4759,7 +5155,7 @@ def transpose(input, dim1, dim2):
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def twixread(dat_file, x=None, r=None, y=None, z=None, s=None, v=None, c=None, n=None, a=None, A=None, L=None, P=None, M=None):
+def twixread(dat_file, x=None, r=None, y=None, z=None, s=None, v=None, c=None, n=None, a=None, A=None, L=None, P=None, M=None, d=None):
     """
     Read data from Siemens twix (.dat) files.
 
@@ -4777,9 +5173,10 @@ def twixread(dat_file, x=None, r=None, y=None, z=None, s=None, v=None, c=None, n
     :param L bool: use linectr offset
     :param P bool: use partctr offset
     :param M bool: MPI mode
+    :param d int: Debug level
 
     """
-    usage_string = "twixread [-x d] [-r d] [-y d] [-z d] [-s d] [-v d] [-c d] [-n d] [-a d] [-A] [-L] [-P] [-M] dat file output"
+    usage_string = "twixread [-x d] [-r d] [-y d] [-z d] [-s d] [-v d] [-c d] [-n d] [-a d] [-A] [-L] [-P] [-M] [-d d] dat file output"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'twixread '
@@ -4827,6 +5224,9 @@ def twixread(dat_file, x=None, r=None, y=None, z=None, s=None, v=None, c=None, n
 
     if M is not None:
         flag_str += f'-M '
+
+    if d is not None:
+        flag_str += f'-d {d} '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {NAME}dat_file {NAME}output  "
@@ -5132,7 +5532,7 @@ Expected dimensions:
     outputs = cfl.readcfl(NAME + 'output')
     return outputs
 
-def wavelet(input, bitmask, dim=None, a=None):
+def wavelet(input, bitmask, dim=None, a=None, H=None, D=None, C=None):
     """
     Perform wavelet transform.
 
@@ -5140,9 +5540,12 @@ def wavelet(input, bitmask, dim=None, a=None):
     :param input array:
     :param dim tuple: None
     :param a bool: adjoint (specify dims)
+    :param H bool: type: Haar
+    :param D bool: type: Dau2
+    :param C bool: type: CDF44
 
     """
-    usage_string = "wavelet [-a] bitmask [dim1 ... dimN ] input output"
+    usage_string = "wavelet [-a] [-H] [-D] [-C] bitmask [dim1 ... dimN ] input output"
 
     cmd_str = f'{BART_PATH} '
     cmd_str += 'wavelet '
@@ -5157,6 +5560,15 @@ def wavelet(input, bitmask, dim=None, a=None):
 
     if a is not None:
         flag_str += f'-a '
+
+    if H is not None:
+        flag_str += f'-H '
+
+    if D is not None:
+        flag_str += f'-D '
+
+    if C is not None:
+        flag_str += f'-C '
     cmd_str += flag_str + opt_args + '  '
 
     cmd_str += f"{' '.join([' '.join([str(x) for x in arg]) for arg in zip(*multituples)]).strip()} {bitmask} {NAME}input {NAME}output  "

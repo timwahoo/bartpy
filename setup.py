@@ -12,6 +12,7 @@ import re
 import sys
 
 import numpy as np
+import brkbart
 
 from build_tools.utils import write_tool_methods
 
